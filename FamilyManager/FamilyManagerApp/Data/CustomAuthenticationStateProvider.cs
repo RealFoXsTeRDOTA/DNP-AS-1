@@ -65,7 +65,7 @@ namespace FamilyManagerApp.Data {
                 if (user.Username.Equals(username.Trim()))
                     throw new Exception("Username is already used");
             }
-            users.Add(new User(username.TrimStart().TrimEnd(), password.TrimStart().TrimEnd()));
+            userService.AddUser(username.TrimStart().TrimEnd(), password.TrimStart().TrimEnd());
         }
 
         public void Logout() {

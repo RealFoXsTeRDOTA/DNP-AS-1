@@ -1,15 +1,14 @@
-<<<<<<< Updated upstream
+using Microsoft.Extensions.Hosting;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FamilyManagerApp.Data;
-=======
-
 using System.Security.Claims;
 using FamilyManagerApp.Data;
 using FileData;
->>>>>>> Stashed changes
+
 using Microsoft.AspNetCore.Builder;
 
 using Microsoft.AspNetCore.Components.Authorization;
@@ -31,12 +30,10 @@ namespace FamilyManagerApp {
         public void ConfigureServices(IServiceCollection services) {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-<<<<<<< Updated upstream
             services.AddSingleton<IFamilyData, FamilyJSONData>();
-=======
             services.AddScoped<IUserService, UserListService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
->>>>>>> Stashed changes
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
