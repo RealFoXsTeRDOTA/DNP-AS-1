@@ -136,6 +136,15 @@ namespace FamilyManagerApp.Data
             return output;
         }
 
+        public ISet<string> GetHairColors() {
+            ISet<string> output = new HashSet<string>();
+            foreach (Person person in People) {
+                output.Add(person.HairColor);
+            }
+
+            return output;
+        }
+
         private void WriteFamiliesToFile() {
             string familiesAsJson = JsonSerializer.Serialize(Families);
             File.WriteAllText(FamilyFile, familiesAsJson);
