@@ -1,0 +1,155 @@
+﻿@page "/statistics"
+@page "/stats"
+@attribute [Authorize]
+
+@inject IFamilyData Model
+
+@using Models
+@using FamilyManagerApp.Data
+
+<h1 class="mb-3">Statistics</h1>
+<div class="container-fluid mb-5">
+    <p>Number of single parents: @families.Count(f => f.Adults.Count == 1)</p>
+    <p>Number of families with more than 4 children: @families.Count(f => f.Children.Count > 4)</p>
+    <p>Number of people with blue eyes: @families.Sum(f => f.Adults.Count(a => a.EyeColor.Equals("Blue")))</p>
+    <p>Total number of families: @families.Count()</p>
+    <p>Total number of people: @people.Count()</p>
+    <p>Average number of people per family: @families.Average(f => f.Adults.Count() + f.Children.Count())</p>
+    <p>Average number of children per family: @families.Average(f => f.Children.Count())</p>
+    <p>Average number of pets per family: @families.Average(f => f.Pets.Count() + f.Children.Sum(c => c.Pets.Count))</p>
+</div>
+
+<div class="container-fluid mb-5">
+    <div class="row">
+        <div class="col">
+            <h3>Distribution of number of children</h3>
+            <RadzenChart>
+                <RadzenBarSeries StrokeWidth="0.1" Data="@families" CategoryProperty="StreetName" ValueProperty="Children.Count"/>
+                <RadzenValueAxis Min="0" Step="1">
+                    <RadzenGridLines Visible="true"/>
+                    <RadzenAxisTitle Text="# of children"/>
+                </RadzenValueAxis>
+                <RadzenBarOptions Radius="5"/>
+                <RadzenChartTooltipOptions Visible="false"/>
+                <RadzenLegend Visible="false"/>
+            </RadzenChart>
+        </div>
+        <div class="col">
+            <h3>Distribution of age</h3>
+            <RadzenChart>
+                <RadzenBarSeries StrokeWidth="0.1" Data="@ages" CategoryProperty="Name" ValueProperty="Count"/>
+                <RadzenValueAxis Min="0" Step="1">
+                    <RadzenGridLines Visible="true"/>
+                    <RadzenAxisTitle Text="# of people"/>
+                </RadzenValueAxis>
+                <RadzenBarOptions Radius="5"/>
+                <RadzenChartTooltipOptions Visible="false"/>
+                <RadzenLegend Visible="false"/>
+            </RadzenChart>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mb-5">
+    <div class="row mb-5">
+        <div class="col">
+            <h3>Distribution of sex</h3>
+            <RadzenChart>
+                <RadzenPieSeries Data="@sex" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
+                <RadzenLegend Position="LegendPosition.Bottom"/>
+            </RadzenChart>
+        </div>
+        <div class="col">
+            <h3>Distribution of eye color</h3>
+            <RadzenChart>
+                <RadzenPieSeries Data="@eyeColors" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
+                <RadzenLegend Position="LegendPosition.Bottom"/>
+            </RadzenChart>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col">
+            <h3>Distribution of # of children per family</h3>
+            <RadzenChart>
+                <RadzenPieSeries Data="@children" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
+                <RadzenLegend Position="LegendPosition.Bottom"/>
+            </RadzenChart>
+        </div>
+        <div class="col">
+            <h3>Distribution of # of pets per family</h3>
+            <RadzenChart>
+                <RadzenPieSeries Data="@pets" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
+                <RadzenLegend Position="LegendPosition.Bottom"/>
+            </RadzenChart>
+        </div>
+    </div>
+</div>
+
+@code {
+    private IList<Family> families;
+    private IList<Person> people;
+    
+    private IList<ChartData> sex;
+    private IList<ChartData> eyeColors;
+    private IList<ChartData> ages;
+    private IList<ChartData> children;
+    private IList<ChartData> pets;
+
+    private struct ChartData {
+        public string Name { get; set; }
+        public int Count { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync() {
+        families = Model.GetFamilies();
+        people = Model.GetPeople();
+
+        sex = new List<ChartData>();
+        sex.Add(new ChartData() {
+            Name = "Male",
+            Count = people.Count(p => p.Sex.Equals("M"))
+        });
+        sex.Add(new ChartData() {
+            Name = "Female",
+            Count = people.Count(p => p.Sex.Equals("F"))
+        });
+
+        eyeColors = new List<ChartData>();
+        foreach (var col in Model.GetEyeColors()) {
+            eyeColors.Add(new ChartData() {
+                Name = col,
+                Count = people.Count(p => p.EyeColor.Equals(col))
+            });
+        }
+
+        ages = new List<ChartData>();
+        ages.Add(new ChartData() {
+            Name = "<10",
+            Count = people.Count(p => p.Age < 10)
+        });
+        ages.Add(new ChartData() {
+            Name = ">9 & <21",
+            Count = people.Count(p => p.Age is >= 10 and < 21)
+        });
+        ages.Add(new ChartData() {
+            Name = ">20 & <45",
+            Count = people.Count(p => p.Age is >= 21 and < 45)
+        });
+        ages.Add(new ChartData() {
+            Name = ">44 & <66",
+            Count = people.Count(p => p.Age is >= 45 and < 66)
+        });
+        ages.Add(new ChartData() {
+            Name = ">65",
+            Count = people.Count(p => p.Age >= 66)
+        });
+
+        children = new List<ChartData>();
+        //families.
+        //children.Add(new ChartData() {
+        //
+        //});
+
+        pets = new List<ChartData>();
+    }
+}

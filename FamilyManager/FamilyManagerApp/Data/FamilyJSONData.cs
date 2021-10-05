@@ -127,6 +127,15 @@ namespace FamilyManagerApp.Data
             WriteFamiliesToFile();
         }
 
+        public ISet<string> GetEyeColors() {
+            ISet<string> output = new HashSet<string>();
+            foreach (Person person in People) {
+                output.Add(person.EyeColor);
+            }
+
+            return output;
+        }
+
         private void WriteFamiliesToFile() {
             string familiesAsJson = JsonSerializer.Serialize(Families);
             File.WriteAllText(FamilyFile, familiesAsJson);
