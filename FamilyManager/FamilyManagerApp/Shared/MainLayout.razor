@@ -1,5 +1,5 @@
 @inherits LayoutComponentBase
-
+@inject NavigationManager NavigationManager
 <div class="page">
     <div class="sidebar">
         <NavMenu/>
@@ -14,3 +14,16 @@
         </div>
     </div>
 </div>
+
+@code {
+    // [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
+    //
+    // protected async override Task OnInitializedAsync() {
+    //     base.OnInitializedAsync();
+    //     var user = (await AuthStat).User;
+    //     if (!user.Identity.IsAuthenticated) {
+    //         NavigationManager.NavigateTo($"/Login");
+    //     }
+    // }
+
+}
