@@ -1,17 +1,116 @@
-﻿@page "/Family/{uniqueKey}"
+﻿@page "/Family/{address}/{number:int}"
 @using Data;
 @using Models;
 @inject NavigationManager navigationManager;
 @inject IFamilyData FamilyData;
-<h3>Family</h3>
+<!-- role, name, age, pets if any, id, age, sex -->
 
-@code { 
+<h1>@family.GetUniqueKey()</h1>
+<p>Search for a particular member: <input type="text" @oninput="@((arg) => FilterByName(arg))" style="width: 200px"/></p>
+<p>
+    Filter by role:
+    <select name="role" @oninput="@((arg) => FilterByRole(arg))">
+        <option value="all">All</option>
+        <option value="adult">Adult</option>
+        <option value="child">Child</option>
+    </select>
+</p>
+
+@if (filteredFamilyMembers == null) {
+    <p>
+        <em> Loading ...</em>
+    </p>
+}
+else if (!filteredFamilyMembers.Any()) {
+    <p>
+        <em>This family doesn't have any members yet</em>
+    </p>
+}
+else {
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th @onclick="SortByFirstName">First Name</th>
+            <th @onclick="SortByLastName">Last Name</th>
+            <th>Role</th>
+            <th>Age</th>
+            <th>Sex</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in filteredFamilyMembers) {
+            <tr class="family-row">
+                <td>@item.Id</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                @if (item is Child) {
+                    <td>Child</td>
+                }
+                else {
+                    <td>Adult</td>
+                }
+                <td>@item.Age</td>
+                <td>@item.Sex</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+
     [Parameter]
-    public string UniqueKey { get; set; }
+    public string Address { get; set; }
+
+    [Parameter]
+    public int Number { get; set; }
 
     private Family family;
+    private IList<Person> familyMembers;
+    private IList<Person> filteredFamilyMembers;
+
     protected override async Task OnInitializedAsync() {
-        string[] split = UniqueKey.Split(" ");
-        family = FamilyData.GetFamily(split[0],int.Parse(split[1]));
+        family = FamilyData.GetFamily(Address, Number);
+        familyMembers = family.GetAllMembers();
+        filteredFamilyMembers = familyMembers;
     }
+
+    private void FilterByName(ChangeEventArgs changeEventArgs) {
+        List<Person> people = new List<Person>();
+        foreach (var person in family.GetAllMembers()) {
+            if (person.FirstName.ToLower().Contains(changeEventArgs.Value.ToString().ToLower()) || person.LastName.ToLower().Contains(changeEventArgs.Value.ToString().ToLower()))
+                people.Add(person);
+        }
+        filteredFamilyMembers = people;
+    }
+
+    private void FilterByRole(ChangeEventArgs changeEventArgs) {
+        List<Person> people = new List<Person>();
+        if (changeEventArgs.Value.ToString().Equals("child")) {
+            foreach (var person in family.Children) {
+                people.Add(person);
+            }
+        }
+        else if (changeEventArgs.Value.ToString().Equals("adult")) {
+            foreach (var person in family.Adults) {
+                people.Add(person);
+            }
+        }
+        else if (changeEventArgs.Value.ToString().Equals("all")) {
+            people = familyMembers.ToList();
+        }
+        filteredFamilyMembers = people;
+    }
+
+    private void SortByFirstName() {
+        var sort = filteredFamilyMembers.OrderBy(name => name.FirstName);
+        filteredFamilyMembers = sort.ToList();
+    }
+
+    private void SortByLastName() {
+        var sort = filteredFamilyMembers.OrderBy(name => name.LastName);
+        filteredFamilyMembers = sort.ToList();
+    }
+
 }

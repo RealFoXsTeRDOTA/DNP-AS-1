@@ -112,6 +112,7 @@ namespace FamilyManagerApp.Data
             return Families.FirstOrDefault(f => f.StreetName.Equals(streetName)
                                                 && f.HouseNumber == houseNumber);
         }
+        
 
         public Person GetPerson(int personId) {
             return People.FirstOrDefault(p => p.Id == personId);

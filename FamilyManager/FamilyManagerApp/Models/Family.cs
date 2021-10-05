@@ -18,7 +18,7 @@ public class Family {
     }
 
     public int GetNumberOfMembers() {
-        return Adults.Capacity + Children.Capacity;
+        return Adults.Count + Children.Count;
     }
 
     public bool HasPets() {
@@ -28,6 +28,18 @@ public class Family {
     public string GetUniqueKey() {
         return $"{StreetName} {HouseNumber}";
     }
+
+    public IList<Person> GetAllMembers() {
+        IList<Person> people = new List<Person>();
+        foreach (var person in Adults) {
+            people.Add(person);
+        }
+        foreach (var person in Children) {
+            people.Add(person);
+        }
+        return people;
+    }
+    
 }
 
 

@@ -48,5 +48,12 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+.family-row:hover{
+    background-color: #FBE6E2;
+}
+
+th:hover{
+    cursor: default;
+}
 
     
