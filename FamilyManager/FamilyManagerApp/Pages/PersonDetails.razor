@@ -1,7 +1,18 @@
 ﻿@page "/Person/{id:int}"
+@using Models
+@using Data
+@inject NavigationManager navigationManager;
+@inject IFamilyData FamilyData;
 <h3>Person</h3>
-
+<p>@person.FirstName  @person.LastName</p>
 @code {
     [Parameter]
     public int id { set; get; }
+
+    private Person person;
+
+    protected override async Task OnInitializedAsync() {
+        person = FamilyData.GetPerson(id);
+    }
+    
 }

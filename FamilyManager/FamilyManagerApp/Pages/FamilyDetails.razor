@@ -40,7 +40,7 @@ else {
         </thead>
         <tbody>
         @foreach (var item in filteredFamilyMembers) {
-            <tr class="family-row">
+            <tr class="family-row" @onclick="@(() =>View(item.Id))">
                 <td>@item.Id</td>
                 <td>@item.FirstName</td>
                 <td>@item.LastName</td>
@@ -111,6 +111,10 @@ else {
     private void SortByLastName() {
         var sort = filteredFamilyMembers.OrderBy(name => name.LastName);
         filteredFamilyMembers = sort.ToList();
+    }
+
+    private void View(int id) {
+        navigationManager.NavigateTo($"Person/{id}");
     }
 
 }
