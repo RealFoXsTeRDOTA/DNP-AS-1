@@ -8,22 +8,18 @@ using Models;
 
 namespace FamilyManagerApp.Data
 {
-    public class FamilyJSONData : IFamilyData
-    {
+    public class FamilyJSONData : IFamilyData {
         private string FamilyFile = "family.json";
         private IList<Family> Families;
         private IList<Person> People;
         private IList<Pet> Pets;
 
-        public FamilyJSONData()
-        {
-            if (!File.Exists(FamilyFile))
-            {
+        public FamilyJSONData() {
+            if (!File.Exists(FamilyFile)) {
                 Seed();
                 WriteFamiliesToFile();
             }
-            else
-            {
+            else {
                 string content = File.ReadAllText(FamilyFile);
                 Families = JsonSerializer.Deserialize<List<Family>>(content);
                 foreach (Family f in Families)
@@ -36,133 +32,113 @@ namespace FamilyManagerApp.Data
             }
         }
 
-        public IList<Family> GetFamilies()
-        {
+        public IList<Family> GetFamilies() {
             List<Family> fam = new List<Family>(Families);
             return fam;
         }
 
-        public IList<Person> GetPeople()
-        {
+        public IList<Person> GetPeople() {
             List<Person> people = new List<Person>(People);
             return people;
         }
 
-        public IList<Pet> GetPets()
-        {
+        public IList<Pet> GetPets() {
             List<Pet> pets = new List<Pet>(Pets);
             return pets;
         }
 
-        public void AddFamily(Family family)
-        {
+        public void AddFamily(Family family) {
             Family fam = Families.FirstOrDefault(f => f.HouseNumber == family.HouseNumber
                                                       && f.StreetName.Equals(family.StreetName));
             if (fam == null)
                 Families.Add(family);
+            else 
+                throw new Exception("The family already exists");
             WriteFamiliesToFile();
         }
 
-        public void AddPerson(Person person)
-        {
+        public void AddPerson(Person person) {
             int max = People.Max(p => p.Id);
             person.Id = (++max);
             People.Add(person);
             WriteFamiliesToFile();
         }
 
-        public void AddPet(Pet pet)
-        {
+        public void AddPet(Pet pet) {
             int max = Pets.Max(p => p.Id);
             pet.Id = (++max);
             Pets.Add(pet);
             WriteFamiliesToFile();
         }
 
-        public void RemoveFamily(string streetName, int houseNumber)
-        {
+        public void RemoveFamily(string streetName, int houseNumber) {
             Family family = Families.First(f => f.StreetName.Equals(streetName)
                                                 && f.HouseNumber == houseNumber);
             Families.Remove(family);
             WriteFamiliesToFile();
         }
 
-        public void RemovePerson(int personId)
-        {
+        public void RemovePerson(int personId) {
             Person person = People.First(p => p.Id == personId);
             People.Remove(person);
             WriteFamiliesToFile();
         }
 
-        public void RemovePet(int petId)
-        {
+        public void RemovePet(int petId) {
             Pet pet = Pets.First(p => p.Id == petId);
             Pets.Remove(pet);
             WriteFamiliesToFile();
         }
 
-        public Family GetFamily(string streetName, int houseNumber)
-        {
+        public Family GetFamily(string streetName, int houseNumber) {
             return Families.FirstOrDefault(f => f.StreetName.Equals(streetName)
                                                 && f.HouseNumber == houseNumber);
         }
 
-        public Person GetPerson(int personId)
-        {
+        public Person GetPerson(int personId) {
             return People.FirstOrDefault(p => p.Id == personId);
         }
 
-        public Pet GetPet(int petId)
-        {
+        public Pet GetPet(int petId) {
             return Pets.FirstOrDefault(p => p.Id == petId);
         }
 
-        public void UpdateFamily(Family family)
-        {
+        public void UpdateFamily(Family family) {
             Family fam = Families.First(f => f.HouseNumber == family.HouseNumber
                                              && f.StreetName.Equals(family.StreetName));
             //TODO Update stuff
             WriteFamiliesToFile();
         }
 
-        public void UpdatePerson(Person person)
-        {
+        public void UpdatePerson(Person person) {
             Person per = People.First(p => p.Id == person.Id);
             // TODO update stuff
             WriteFamiliesToFile();
         }
 
-        public void UpdatePet(Pet pet)
-        {
+        public void UpdatePet(Pet pet) {
             Pet p = Pets.First(p => p.Id == pet.Id);
             // TODO update stuff
             WriteFamiliesToFile();
         }
 
-        public void WriteFamiliesToFile()
-        {
+        public void WriteFamiliesToFile() {
             string familiesAsJson = JsonSerializer.Serialize(Families);
             File.WriteAllText(FamilyFile, familiesAsJson);
         }
 
-        public void Seed()
-        {
-            Family[] f =
-            {
-                new Family()
-                {
-                    Adults =
-                    {
-                        new Adult()
-                        {
+        public void Seed() {
+            Family[] f = {
+                new Family() {
+                    Adults = {
+                        new Adult() {
                             Age = 35,
                             EyeColor = "brown",
                             FirstName = "Adriana",
                             HairColor = "red",
                             Height = 175,
                             Id = 1,
-                            JobTitle = new Job()
-                            {
+                            JobTitle = new Job() {
                                 JobTitle = "Bartender",
                                 Salary = 12000
                             },
@@ -171,20 +147,16 @@ namespace FamilyManagerApp.Data
                             Weight = 70
                         }
                     },
-                    Children =
-                    {
-                        new Child()
-                        {
+                    Children = {
+                        new Child() {
                             Age = 12,
                             EyeColor = "blue",
                             FirstName = "Morten",
                             HairColor = "Green",
                             Height = 180,
                             Id = 2,
-                            Interests =
-                            {
-                                new Interest()
-                                {
+                            Interests = {
+                                new Interest() {
                                     Type = "Jogging",
                                     Description = "Running in the morning"
                                 }
