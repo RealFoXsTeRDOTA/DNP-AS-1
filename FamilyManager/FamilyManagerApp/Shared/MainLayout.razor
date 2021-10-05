@@ -16,14 +16,13 @@
 </div>
 
 @code {
-    // [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
-    //
-    // protected async override Task OnInitializedAsync() {
-    //     base.OnInitializedAsync();
-    //     var user = (await AuthStat).User;
-    //     if (!user.Identity.IsAuthenticated) {
-    //         NavigationManager.NavigateTo($"/Login");
-    //     }
-    // }
-
+    [CascadingParameter]
+    protected Task<AuthenticationState> AuthStat { get; set; }
+    
+    protected override async Task OnInitializedAsync() {
+        var user = (await AuthStat).User;
+        if (!user.Identity.IsAuthenticated) {
+            NavigationManager.NavigateTo($"/LoginPage");
+        }
+    }
 }

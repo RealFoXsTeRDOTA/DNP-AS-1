@@ -7,9 +7,9 @@
 @using Models
 @using FamilyManagerApp.Data
 
-<div class="container-fluid mb-5">
-    <h1 class="mb-3">Statistics</h1>
-    <div class="row">
+<div class="card mb-5">
+    <h1 class="card-header mb-3">Statistics</h1>
+    <div class="card-body row">
         <div class="col-xl-4 col-md-12">
             <p># of families: @families.Count()</p>
             <p># of adults: @people.Count((p => p is Adult))</p>
@@ -33,7 +33,7 @@
 
 <div class="container-fluid mb-5">
     <div class="row">
-        <div class="col">
+        <div class="col-lg-6 col-sm-12">
             <h3 class="text-center">Distribution of number of children</h3>
             <RadzenChart>
                 <RadzenBarSeries Data="@families" CategoryProperty="StreetName" ValueProperty="Children.Count"/>
@@ -46,7 +46,7 @@
                 <RadzenLegend Visible="false"/>
             </RadzenChart>
         </div>
-        <div class="col">
+        <div class="col-lg-6 col-sm-12">
             <h3 class="text-center">Distribution of pets</h3>
             <RadzenChart>
                 <RadzenBarSeries Data="@families" CategoryProperty="StreetName" ValueProperty="Pets.Count"/>
@@ -64,14 +64,14 @@
 
 <div class="container-fluid mb-5">
     <div class="row mb-5">
-        <div class="col">
+        <div class="col-lg-6 col-sm-12">
             <h3 class="text-center">Distribution of sex</h3>
             <RadzenChart>
                 <RadzenPieSeries Data="@sex" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
                 <RadzenLegend Position="LegendPosition.Bottom"/>
             </RadzenChart>
         </div>
-        <div class="col">
+        <div class="col-lg-6 col-sm-12">
             <h3 class="text-center">Age distribution</h3>
             <RadzenChart>
                 <RadzenPieSeries Data="@ages" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
@@ -80,14 +80,14 @@
         </div>
     </div>
     <div class="row mb-5">
-        <div class="col">
+        <div class="col-lg-6 col-sm-12">
             <h3 class="text-center">Distribution of hair color</h3>
             <RadzenChart>
                 <RadzenPieSeries Data="@hairColors" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
                 <RadzenLegend Position="LegendPosition.Bottom"/>
             </RadzenChart>
         </div>
-        <div class="col">
+        <div class="col-lg-6 col-sm-12">
             <h3 class="text-center">Distribution of eye color</h3>
             <RadzenChart>
                 <RadzenPieSeries Data="@eyeColors" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
@@ -96,14 +96,14 @@
         </div>
     </div>
     <div class="row mb-5">
-        <div class="col">
+        <div class="col-lg-6 col-sm-12">
             <h3 class="text-center">Height distribution</h3>
             <RadzenChart>
                 <RadzenPieSeries Data="@heights" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
                 <RadzenLegend Position="LegendPosition.Bottom"/>
             </RadzenChart>
         </div>
-        <div class="col">
+        <div class="col-lg-6 col-sm-12">
             <h3 class="text-center">Weight distribution</h3>
             <RadzenChart>
                 <RadzenPieSeries Data="@weights" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>

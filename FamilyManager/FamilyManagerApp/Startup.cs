@@ -31,9 +31,9 @@ namespace FamilyManagerApp {
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<IFamilyData, FamilyJSONData>();
-            services.AddScoped<IUserService, UserListService>();
+            services.AddSingleton<IUserService, UserListService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-
+            services.AddAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
