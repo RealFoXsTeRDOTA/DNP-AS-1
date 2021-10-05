@@ -1,0 +1,54 @@
+﻿@page "/RegisterPage"
+@using FileData
+@using Models
+@using FamilyManagerApp.Data
+@inject NavigationManager NavigationManager
+@inject IUserService UserService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<div class="d-flex justify-content-center align-self-center">
+<div class="card w-50" >
+    <h4 class="card-header">Register</h4>
+    <div class="card-body">
+        <AuthorizeView>
+            <NotAuthorized>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input class="form-control" type="text" placeholder="Username" @bind-value="Username"/>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" type="Password" placeholder="Password" @bind-value="Password"/>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" type="Password" placeholder="Confirmation password" @bind-value="ConfirmationPassword"/>
+                </div>
+                <div style="color:red">@ErrorMessage</div>
+                <button @onclick="PerformRegistration" class =" btn btn-primary mr-1" href="/LoginPage">Register</button>
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
+</div>
+</div>
+@code {
+    private string Username;
+    private string Password;
+    private string ConfirmationPassword;
+    private string ErrorMessage;
+
+    public async Task PerformRegistration() {
+        ErrorMessage = "";
+        try {
+            ((CustomAuthenticationStateProvider)AuthenticationStateProvider).ValidateRegister(Username, Password, ConfirmationPassword);
+            Username = "";
+            Password = "";
+            NavigationManager.NavigateTo("/LoginPage");
+        }
+        catch (Exception e) {
+            ErrorMessage = e.Message;
+        }
+    }
+
+}

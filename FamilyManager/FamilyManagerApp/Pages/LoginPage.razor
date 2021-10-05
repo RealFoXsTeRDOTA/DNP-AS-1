@@ -1,0 +1,61 @@
+﻿@page "/LoginPage"
+@using FamilyManagerApp.Data
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="d-flex justify-content-center align-self-center">
+<div class="card w-50" >
+    <h4 class="card-header">Login</h4>
+    <div class="card-body">
+        <AuthorizeView>
+            <NotAuthorized>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input class="form-control" type="text" placeholder="Username" @bind-value="username"/>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" type="Password" placeholder="Password" @bind-value="password"/>
+                </div>
+                <div style="color:red">@errorMessage</div>
+                <button class =" btn btn-primary mr-1" @onclick="PerformLogin">Login</button> 
+                <NavLink href="/RegisterPage" class ="btn btn-link">Register</NavLink>
+            </NotAuthorized>
+            <Authorized>
+                <a href="" @onclick="PerformLogout">Log out</a>
+            </Authorized>
+        </AuthorizeView>
+    </div>
+</div>
+</div>
+@code {
+    private string username;
+    private string password;
+    private string errorMessage;
+
+    public async Task PerformLogin() {
+        errorMessage = "";
+        try {
+            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
+            username = "";
+            password = "";
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception e) {
+            errorMessage = e.Message;
+        }
+    }
+
+    public async Task PerformLogout() {
+        errorMessage = "";
+        username = "";
+        password = "";
+        try {
+            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception e) {
+            
+        }
+    }
+}
