@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -9,7 +10,7 @@ using Models;
 namespace FamilyManagerApp.Data
 {
     public class FamilyJSONData : IFamilyData {
-        private string FamilyFile = "family.json";
+        private string FamilyFile = "Data/families.json";
         private IList<Family> Families;
         private IList<Person> People;
         private IList<Pet> Pets;
@@ -22,12 +23,16 @@ namespace FamilyManagerApp.Data
             else {
                 string content = File.ReadAllText(FamilyFile);
                 Families = JsonSerializer.Deserialize<List<Family>>(content);
+                People = new List<Person>();
+                Pets = new List<Pet>();
                 foreach (Family f in Families)
                 {
                     foreach (Adult adult in f.Adults)
                         People.Add(adult);
                     foreach (Child child in f.Children)
                         People.Add(child);
+                    foreach (Pet pet in f.Pets) 
+                        Pets.Add(pet);
                 }
             }
         }
@@ -122,12 +127,12 @@ namespace FamilyManagerApp.Data
             WriteFamiliesToFile();
         }
 
-        public void WriteFamiliesToFile() {
+        private void WriteFamiliesToFile() {
             string familiesAsJson = JsonSerializer.Serialize(Families);
             File.WriteAllText(FamilyFile, familiesAsJson);
         }
 
-        public void Seed() {
+        private void Seed() {
             Family[] f = {
                 new Family() {
                     Adults = {
