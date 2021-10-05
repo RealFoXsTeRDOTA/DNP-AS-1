@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace FamilyManagerApp.Data
         private string FamilyFile = "family.json";
         private IList<Family> Families;
         private IList<Person> People;
+        private IList<Pet> Pets;
+
         public FamilyJSONData()
         {
             if (!File.Exists(FamilyFile))
@@ -32,7 +35,7 @@ namespace FamilyManagerApp.Data
                 }
             }
         }
-        
+
         public IList<Family> GetFamilies()
         {
             List<Family> fam = new List<Family>(Families);
@@ -43,6 +46,12 @@ namespace FamilyManagerApp.Data
         {
             List<Person> people = new List<Person>(People);
             return people;
+        }
+
+        public IList<Pet> GetPets()
+        {
+            List<Pet> pets = new List<Pet>(Pets);
+            return pets;
         }
 
         public void AddFamily(Family family)
@@ -62,9 +71,17 @@ namespace FamilyManagerApp.Data
             WriteFamiliesToFile();
         }
 
+        public void AddPet(Pet pet)
+        {
+            int max = Pets.Max(p => p.Id);
+            pet.Id = (++max);
+            Pets.Add(pet);
+            WriteFamiliesToFile();
+        }
+
         public void RemoveFamily(string streetName, int houseNumber)
         {
-            Family family = Families.First(f => f.StreetName.Equals(streetName) 
+            Family family = Families.First(f => f.StreetName.Equals(streetName)
                                                 && f.HouseNumber == houseNumber);
             Families.Remove(family);
             WriteFamiliesToFile();
@@ -77,15 +94,27 @@ namespace FamilyManagerApp.Data
             WriteFamiliesToFile();
         }
 
+        public void RemovePet(int petId)
+        {
+            Pet pet = Pets.First(p => p.Id == petId);
+            Pets.Remove(pet);
+            WriteFamiliesToFile();
+        }
+
         public Family GetFamily(string streetName, int houseNumber)
         {
-            return Families.FirstOrDefault(f => f.StreetName.Equals(streetName) 
+            return Families.FirstOrDefault(f => f.StreetName.Equals(streetName)
                                                 && f.HouseNumber == houseNumber);
         }
 
         public Person GetPerson(int personId)
         {
             return People.FirstOrDefault(p => p.Id == personId);
+        }
+
+        public Pet GetPet(int petId)
+        {
+            return Pets.FirstOrDefault(p => p.Id == petId);
         }
 
         public void UpdateFamily(Family family)
@@ -103,6 +132,13 @@ namespace FamilyManagerApp.Data
             WriteFamiliesToFile();
         }
 
+        public void UpdatePet(Pet pet)
+        {
+            Pet p = Pets.First(p => p.Id == pet.Id);
+            // TODO update stuff
+            WriteFamiliesToFile();
+        }
+
         public void WriteFamiliesToFile()
         {
             string familiesAsJson = JsonSerializer.Serialize(Families);
@@ -111,7 +147,57 @@ namespace FamilyManagerApp.Data
 
         public void Seed()
         {
-            
+            Family[] f =
+            {
+                new Family()
+                {
+                    Adults =
+                    {
+                        new Adult()
+                        {
+                            Age = 35,
+                            EyeColor = "brown",
+                            FirstName = "Adriana",
+                            HairColor = "red",
+                            Height = 175,
+                            Id = 1,
+                            JobTitle = new Job()
+                            {
+                                JobTitle = "Bartender",
+                                Salary = 12000
+                            },
+                            LastName = "Grecea",
+                            Sex = "Feminine",
+                            Weight = 70
+                        }
+                    },
+                    Children =
+                    {
+                        new Child()
+                        {
+                            Age = 12,
+                            EyeColor = "blue",
+                            FirstName = "Morten",
+                            HairColor = "Green",
+                            Height = 180,
+                            Id = 2,
+                            Interests =
+                            {
+                                new Interest()
+                                {
+                                    Type = "Jogging",
+                                    Description = "Running in the morning"
+                                }
+                            },
+                            LastName = "Hansen",
+                            Sex = "Masculine"
+                        }
+                    },
+                    HouseNumber = 23,
+                    StreetName = "Sundvej"
+                }
+            };
+            Families = f.ToList();
         }
     }
 }
