@@ -62,17 +62,30 @@ namespace FamilyManagerApp.Data
             WriteFamiliesToFile();
         }
 
-        public void AddPerson(Person person) {
+        public void AddPerson(Person person, Family family) {
             int max = People.Max(p => p.Id);
             person.Id = (++max);
             People.Add(person);
+            if (person is Adult)
+                family.Adults.Add((Adult)person);
+            else 
+                family.Children.Add((Child)person);
             WriteFamiliesToFile();
         }
 
-        public void AddPet(Pet pet) {
+        public void AddPet(Pet pet, Child child) {
             int max = Pets.Max(p => p.Id);
             pet.Id = (++max);
             Pets.Add(pet);
+            child.Pets.Add(pet);
+            WriteFamiliesToFile();
+        }
+        
+        public void AddPet(Pet pet, Family family) {
+            int max = Pets.Max(p => p.Id);
+            pet.Id = (++max);
+            Pets.Add(pet);
+            family.Pets.Add(pet);
             WriteFamiliesToFile();
         }
 
@@ -111,19 +124,24 @@ namespace FamilyManagerApp.Data
         public void UpdateFamily(Family family) {
             Family fam = Families.First(f => f.HouseNumber == family.HouseNumber
                                              && f.StreetName.Equals(family.StreetName));
-            //TODO Update stuff
+            fam.HouseNumber = family.HouseNumber;
+            fam.StreetName = family.StreetName;
             WriteFamiliesToFile();
         }
 
         public void UpdatePerson(Person person) {
             Person per = People.First(p => p.Id == person.Id);
-            // TODO update stuff
+            per.LastName = person.LastName;
+            per.HairColor = person.HairColor;
+            per.Age = person.Age;
+            per.Height = person.Height;
+            per.Weight = person.Weight;
             WriteFamiliesToFile();
         }
 
         public void UpdatePet(Pet pet) {
             Pet p = Pets.First(p => p.Id == pet.Id);
-            // TODO update stuff
+            p.Age = pet.Age;
             WriteFamiliesToFile();
         }
 
@@ -157,7 +175,7 @@ namespace FamilyManagerApp.Data
                                 Salary = 12000
                             },
                             LastName = "Grecea",
-                            Sex = "Feminine",
+                            Sex = "F",
                             Weight = 70
                         }
                     },
@@ -168,6 +186,7 @@ namespace FamilyManagerApp.Data
                             FirstName = "Morten",
                             HairColor = "Green",
                             Height = 180,
+                            Weight = 175,
                             Id = 2,
                             Interests = {
                                 new Interest() {
@@ -176,7 +195,7 @@ namespace FamilyManagerApp.Data
                                 }
                             },
                             LastName = "Hansen",
-                            Sex = "Masculine"
+                            Sex = "M"
                         }
                     },
                     HouseNumber = 23,

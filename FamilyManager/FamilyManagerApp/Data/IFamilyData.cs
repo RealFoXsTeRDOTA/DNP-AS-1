@@ -10,8 +10,10 @@ namespace FamilyManagerApp.Data
         IList<Person> GetPeople();
         IList<Pet> GetPets();
         void AddFamily(Family family);
-        void AddPerson(Person person);
-        void AddPet(Pet pet);
+        void AddPerson(Person person, Family family);
+        void AddPet(Pet pet, Family family);
+        void AddPet(Pet pet, Child child);
+
         void RemoveFamily(string streetName, int houseNumber);
         void RemovePerson(int personId);
         void RemovePet(int petId);
