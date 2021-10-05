@@ -1,0 +1,76 @@
+﻿@page "/FamilyList"
+@using Data;
+@using Models
+@inject NavigationManager navigationManager;
+@inject IFamilyData FamilyData;
+<h3>FamilyList</h3>
+
+<h1>List of Families</h1>
+<p>Search for a particular family: <input type="text" @oninput="@((arg) =>FilterByFamilyName(arg) )" style="width: 200px"/></p>
+@if (filteredFamilies == null) {
+    <p>
+        <em> Loading ...</em>
+    </p>
+}
+else if(filteredFamilies.Any()) {
+    <p>
+        <em> No families in the system yet</em>
+    </p>
+}
+else {
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Members</th>
+            <th>Street Name</th>
+            <th>House Number</th>
+            <th>Pets</th>
+            <td>See more</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Family item in filteredFamilies) {
+            <tr>
+                <td>@item.GetNumberOfMembers()</td>
+                <td>@item.StreetName</td>
+                <td>@item.HouseNumber</td>
+                <td>
+                    <input type="checkbox" checked="@item.HasPets()"/>
+                </td>
+                <td>
+                    <button @onclick="@(() => View(item.GetUniqueKey()))">
+                        <i class="oi oi-eye"/>
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private IList<Family> families;
+    private IList<Family> filteredFamilies;
+
+    protected async Task OnInitializedAsync() {
+         families = FamilyData.GetFamilies();
+         filteredFamilies = families;
+    }
+    
+    
+    private void FilterByFamilyName(ChangeEventArgs changeEventArgs) {
+        //TODO
+        List<Family> filter = new List<Family>();
+        foreach (var family in families) {
+            if(family.GetUniqueKey().Contains(changeEventArgs.ToString()))
+                filter.Add(family);
+        }
+        filteredFamilies = filter;
+    }
+
+    private void View(string uniqueKey) {
+        navigationManager.NavigateTo($"Family/{uniqueKey}");
+    }
+
+}

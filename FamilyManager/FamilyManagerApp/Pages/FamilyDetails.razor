@@ -1,0 +1,17 @@
+﻿@page "/Family/{uniqueKey}"
+@using Data;
+@using Models;
+@inject NavigationManager navigationManager;
+@inject IFamilyData FamilyData;
+<h3>Family</h3>
+
+@code { 
+    [Parameter]
+    public string UniqueKey { get; set; }
+
+    private Family family;
+    protected override async Task OnInitializedAsync() {
+        string[] split = UniqueKey.Split(" ");
+        family = FamilyData.GetFamily(split[0],int.Parse(split[1]));
+    }
+}
