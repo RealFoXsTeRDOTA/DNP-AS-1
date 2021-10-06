@@ -56,4 +56,6 @@ th:hover{
     cursor: default;
 }
 
-    
+thead{
+    background-color: #CDF5FF;
+}

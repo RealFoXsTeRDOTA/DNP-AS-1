@@ -3,70 +3,71 @@
 @using Models
 @inject NavigationManager navigationManager;
 @inject IFamilyData FamilyData;
-<h1>List of Families</h1>
-<p>Search for a particular family: <input type="text" @oninput="@((arg) =>FilterByAddress(arg) )" style="width: 200px"/></p>
-@if (filteredFamilies == null) {
-    <p>
-        <em> Loading ...</em>
-    </p>
-}
-else if(!filteredFamilies.Any()) {
-    <p>
-        <em> No families in the system yet</em>
-    </p>
-}
-else {
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Members</th>
-            <th @onclick="SortByStreetName">Street Name</th>
-            <th>House Number</th>
-            <th @onclick="FilterByPets">Pets</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (Family item in filteredFamilies) {
-            <tr @onclick="@(() => View(item.StreetName, item.HouseNumber))" class="family-row">
-                <td>@item.GetNumberOfMembers()</td>
-                <td>@item.StreetName</td>
-                <td>@item.HouseNumber</td>
-                <td>
-                    <input type="checkbox" checked="@item.HasPets()"/>
-                </td>
-                <td>
-                    
-                </td>
-            </tr>
+<div class="d-flex justify-content-center">
+    <div class=" col-9 ">
+        <h1>List of Families</h1>
+        <p>Search for a particular family: <input type="text" @oninput="@((arg) => FilterByAddress(arg))" style="width: 200px"/></p>
+        @if (filteredFamilies == null) {
+            <p>
+                <em> Loading ...</em>
+            </p>
         }
-        </tbody>
-    </table>
-}
+        else if (!filteredFamilies.Any()) {
+            <p>
+                <em> No families in the system yet</em>
+            </p>
+        }
+        else {
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Members</th>
+                    <th @onclick="SortByStreetName">Street Name</th>
+                    <th>House Numbers</th>
+                    <th @onclick="FilterByPets">Pets</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (Family item in filteredFamilies) {
+                    <tr @onclick="@(() => View(item.StreetName, item.HouseNumber))" class="family-row">
+                        <td>@item.GetNumberOfMembers()</td>
+                        <td>@item.StreetName</td>
+                        <td>@item.HouseNumber</td>
+                        <td>
+                            <input type="checkbox" checked="@item.HasPets()"/>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
 
 @code {
 
     private IList<Family> families;
     private IList<Family> filteredFamilies;
-    
+
     private bool wasChecked;
 
     protected override async Task OnInitializedAsync() {
-         families = FamilyData.GetFamilies();
-         filteredFamilies = families;
-         wasChecked = false;
+        families = FamilyData.GetFamilies();
+        filteredFamilies = families;
+        wasChecked = false;
     }
-    
-    
+
+
     private void FilterByAddress(ChangeEventArgs changeEventArgs) {
         List<Family> filter = new List<Family>();
         foreach (var family in families) {
-            if(family.GetUniqueKey().ToLower().Contains(changeEventArgs.Value.ToString().ToLower()))
+            if (family.GetUniqueKey().ToLower().Contains(changeEventArgs.Value.ToString().ToLower()))
                 filter.Add(family);
         }
         filteredFamilies = filter;
     }
 
-    private void View(string streetName,int houseNumber ) {
+    private void View(string streetName, int houseNumber) {
         navigationManager.NavigateTo($"Family/{streetName}/{houseNumber}");
     }
 
@@ -80,13 +81,11 @@ else {
         foreach (var family in families) {
             if (family.HasPets()) {
                 filter.Add(family);
-                
             }
         }
         if (!wasChecked) {
             filteredFamilies = families;
             wasChecked = true;
-            
         }
         else {
             filteredFamilies = filter;
