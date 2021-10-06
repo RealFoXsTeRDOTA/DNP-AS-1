@@ -7,7 +7,7 @@
 
     <div class="main">
         <div class="top-row px-4">
-            <button class="oi oi-action-undo" @onclick="(() => GoBack())">Back</button>
+            <button class="oi oi-action-undo" @onclick="GoBack">Back</button>
         </div>
 
         <div class="content px-4">
@@ -27,8 +27,9 @@
         }
     }
 
-    public void GoBack() {
-        //TODO: smth
+    protected virtual void GoBack() {
+        // NavigationManager.NavigateTo(url);
     }
+    
 
 }

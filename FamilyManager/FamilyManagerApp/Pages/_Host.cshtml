@@ -35,5 +35,19 @@
 
 <script src="_framework/blazor.server.js"></script>
 <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+<script>
+window.initializeCarousel = () =>
+{
+    $('#carousel_family').carousel({interval: 2000});
+
+    //see step 2 to understand these news id's:
+    $('#carousel_family-prev').click ( 
+            () => $('#carousel_family').carousel('prev') );
+    $('#carousel_family-next').click ( 
+            () => $('#carousel_family').carousel('next') );
+
+}
+</script>
 </body>
+
 </html>

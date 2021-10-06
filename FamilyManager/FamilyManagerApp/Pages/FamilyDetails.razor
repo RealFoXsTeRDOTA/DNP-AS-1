@@ -1,62 +1,136 @@
 ﻿@page "/Family/{address}/{number:int}"
 @using Data;
 @using Models;
+@using System.Threading
 @inject NavigationManager navigationManager;
-@inject IFamilyData FamilyData;
+@inject IFamilyData familyData;
+@inherits MainLayout ;
 <!-- role, name, age, pets if any, id, age, sex -->
 
-<h1>@family.GetUniqueKey()</h1>
-<p>Search for a particular member: <input type="text" @oninput="@((arg) => FilterByName(arg))" style="width: 200px"/></p>
-<p>
-    Filter by role:
-    <select name="role" @oninput="@((arg) => FilterByRole(arg))">
-        <option value="all">All</option>
-        <option value="adult">Adult</option>
-        <option value="child">Child</option>
-    </select>
-</p>
 
-@if (filteredFamilyMembers == null) {
-    <p>
-        <em> Loading ...</em>
-    </p>
-}
-else if (!filteredFamilyMembers.Any()) {
-    <p>
-        <em>This family doesn't have any members yet</em>
-    </p>
-}
-else {
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th @onclick="SortByFirstName">First Name</th>
-            <th @onclick="SortByLastName">Last Name</th>
-            <th>Role</th>
-            <th>Age</th>
-            <th>Sex</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in filteredFamilyMembers) {
-            <tr class="family-row" @onclick="@(() =>View(item.Id))">
-                <td>@item.Id</td>
-                <td>@item.FirstName</td>
-                <td>@item.LastName</td>
-                @if (item is Child) {
-                    <td>Child</td>
-                }
-                else {
-                    <td>Adult</td>
-                }
-                <td>@item.Age</td>
-                <td>@item.Sex</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+<div id="carousel_family" class="carousel slide d-flex justify-content-center " data-ride="carousel">
+    <!-- carousel details-->
+    <ol class="carousel-indicators">
+
+        <li data-target="#carousel_family" data-slide-to="0" class="@firstSlide"></li>
+        <li data-target="#carousel_family" data-slide-to="1" class="@secondSlide"></li>
+    </ol>
+    <a class="carousel-control-prev" role="button" data-slide="prev" @onclick="ChangeSlide">
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: #3a0647;"/>
+            </a>
+    <!--carousel inner-->
+    <div class="carousel-inner col-9">
+        <!--controls - have to be fixed -->
+            
+         
+        <!--slide 1-->
+        <div class="carousel-item @firstSlide" id="family-slide">
+            <h1>@family.GetUniqueKey()</h1>
+            <p>Search for a particular member: <input type="text" @oninput="@((arg) => FilterByName(arg))" style="width: 200px"/></p>
+            <p>
+                Filter by role:
+                <select name="role" @oninput="@((arg) => FilterByRole(arg))">
+                    <option value="all">All</option>
+                    <option value="adult">Adult</option>
+                    <option value="child">Child</option>
+                </select>
+            </p>
+
+            @if (filteredFamilyMembers == null) {
+                <p>
+                    <em> Loading ...</em>
+                </p>
+            }
+            else if (!filteredFamilyMembers.Any()) {
+                <p>
+                    <em>This family doesn't have any members yet</em>
+                </p>
+            }
+            else {
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th @onclick="SortByFirstName">First Name</th>
+                        <th @onclick="SortByLastName">Last Name</th>
+                        <th>Role</th>
+                        <th>Age</th>
+                        <th>Sex</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in filteredFamilyMembers) {
+                        <tr class="family-row" @onclick="@(() => View(item.Id, item.FirstName, item.LastName))">
+                            <td>@item.Id</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            @if (item is Child) {
+                                <td>Child</td>
+                            }
+                            else {
+                                <td>Adult</td>
+                            }
+                            <td>@item.Age</td>
+                            <td>@item.Sex</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+        </div>
+        <!-- slide 2-->
+        <div class="carousel-item @secondSlide" id="pet-slide">
+            <h1>@family.GetUniqueKey()'s Pets</h1>
+            <p>Search for a particular pet: <input type="text" @oninput="@((arg) => FilterByPetName(arg))" style="width: 200px"/></p>
+            <p>
+                Filter by species:
+                <select name="species" @oninput="@((arg) => FilterBySpecies(arg))">
+                    <option value="all">All</option>
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="other">Other</option>
+                </select>
+            </p>
+            @if (filteredPets == null) {
+                <p>
+                    <em> Loading ...</em>
+                </p>
+            }
+            else if (!filteredPets.Any()) {
+                <p>
+                    <em>This family doesn't have pets yet</em>
+                </p>
+            }
+            else {
+                <table class="table ">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th @onclick="SortByPetName">Name</th>
+                        <th>Species</th>
+                        <th>Age</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in filteredPets) {
+                        <tr class="family-row" @onclick="@(() => ViewPet(item.Id))">
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.Species</td>
+                            <td>@item.Age</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+        </div>
+   
+    </div>
+    <a class="carousel-control-next" role="button" data-slide="next" @onclick="ChangeSlide">
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: #3a0647"/>
+                </a>
+    </div>
+
 
 @code {
 
@@ -70,10 +144,68 @@ else {
     private IList<Person> familyMembers;
     private IList<Person> filteredFamilyMembers;
 
+    private IList<Pet> pets;
+    private IList<Pet> filteredPets;
+
+
+    //carousel stuff
+    string firstSlide = "active";
+    string secondSlide = "";
+
+    int currentPosition = 0;
+    int currentSlide = 0;
+
+    CancellationTokenSource cts;
+    CancellationToken ct;
+
     protected override async Task OnInitializedAsync() {
-        family = FamilyData.GetFamily(Address, Number);
+        family = familyData.GetFamily(Address, Number);
         familyMembers = family.GetAllMembers();
         filteredFamilyMembers = familyMembers;
+
+        pets = family.Pets;
+        filteredPets = pets;
+
+    //carousel stuff
+        cts = new CancellationTokenSource();
+        ct = cts.Token;
+    // Manually(true);
+    }
+
+    public async Task Walkthrough(CancellationToken ct) {
+        while (!ct.IsCancellationRequested) {
+            await Task.Delay(5000, ct);
+            currentPosition++;
+            ChangeSlide();
+            await InvokeAsync(() => this.StateHasChanged());
+        }
+    }
+
+    public void Manually(bool backwards) {
+        cts.Cancel();
+
+        if (backwards)
+            currentPosition--;
+        else
+            currentPosition++;
+
+        ChangeSlide();
+    }
+
+
+    private void ChangeSlide() {
+        currentSlide = Math.Abs(currentPosition % 2);
+
+        switch (currentSlide) {
+            case 0:
+                firstSlide = "active";
+                secondSlide = "";
+                break;
+            case 1:
+                firstSlide = "";
+                secondSlide = "active";
+                break;
+        }
     }
 
     private void FilterByName(ChangeEventArgs changeEventArgs) {
@@ -113,8 +245,29 @@ else {
         filteredFamilyMembers = sort.ToList();
     }
 
-    private void View(int id) {
-        navigationManager.NavigateTo($"Person/{id}");
+    private void View(int id, string firstName, string lastName) {
+        navigationManager.NavigateTo($"Person/{id}/{firstName}/{lastName}");
+    }
+
+    private void FilterByPetName(ChangeEventArgs changeEventArgs) {
+    //TODO
+    }
+
+    private void FilterBySpecies(ChangeEventArgs changeEventArgs) {
+    //TODO
+    }
+
+    private void SortByPetName() {
+        throw new NotImplementedException();
+    }
+
+    protected override void GoBack() {
+    // base.GoBack("/FamilyList");
+    }
+
+
+    private void ViewPet(int itemId) {
+    //TODO
     }
 
 }
