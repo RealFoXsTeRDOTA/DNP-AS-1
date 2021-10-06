@@ -2,12 +2,80 @@
 @using FamilyManagerApp.Data
 @attribute [Authorize(Policy = Policies.IsAdmin)]
 
+@using Data
+@using Models
+@using System.Collections
+@inject NavigationManager NavMng;
+@inject IFamilyData FamilyData;
 
+<h3>Add a New Family Member</h3>
+<p>
+    Select the type of member you want to:
+</p>
+<div class="mb-3">
+    <select name="type" @oninput="@((arg) => ChangeType(arg))">
+        <option value="Adult">Adult</option>
+        <option value="Child">Child</option>
+        <option value="Pet">Pet</option>
+    </select>
+</div>
+<div class="mb-3">
+    <button class = "btn btn-primary mr-1" @onclick="AddNewFamily">Create a new Family</button>
+    </div>
+<div class="mb-3">
+    <p>Select the chosen family:</p>
+</div>
 
-<h3>AddFamilyMember</h3>
-
-
+@if (Families == null) {
+    <p>
+        <em> Loading ...</em>
+    </p>
+}
+else {
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Members</th>
+            <th>Street Name</th>
+            <th>House Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Family item in Families) {
+            <tr @onclick="@(() => AddNewMember(item.StreetName, item.HouseNumber))" class= "family-row">
+                <td>@item.GetNumberOfMembers()</td>
+                <td>@item.StreetName</td>
+                <td>@item.HouseNumber</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
 
 @code {
+    private string Type;
+    private IList<Family> Families;
     
+    protected override async Task OnInitializedAsync() {
+        Type = "Adult";
+        Families = FamilyData.GetFamilies().Where(f => f.Adults.Count < 2).ToList();
+    }
+
+    private void ChangeType(ChangeEventArgs arg) {
+        Type = arg.Value?.ToString();
+        if (Type.Equals("Adult")) {
+            Families = FamilyData.GetFamilies().Where(f => f.Adults.Count < 2).ToList();
+        }
+        else {
+            Families = FamilyData.GetFamilies().Where(f => f.Adults.Count > 0).ToList();
+        }
+    }
+
+    private void AddNewMember(string streetName,int houseNumber) {
+        NavMng.NavigateTo($"/addmember/{streetName}/{houseNumber}/{Type}");
+    }
+
+    private void AddNewFamily() {
+        NavMng.NavigateTo("/addfamily");
+    }
 }

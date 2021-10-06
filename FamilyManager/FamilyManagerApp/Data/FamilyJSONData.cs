@@ -78,22 +78,29 @@ namespace FamilyManagerApp.Data
             WriteFamiliesToFile();
         }
 
-        public void AddPerson(Person person, Family family) {
+        public void AddAdult(Adult adult, Family family) {
             int max = People.Max(p => p.Id);
-            person.Id = (++max);
-            People.Add(person);
-            if (person is Adult)
-                family.Adults.Add((Adult)person);
-            else 
-                family.Children.Add((Child)person);
+            adult.Id = (++max);
+            People.Add(adult);
+            family.Adults.Add(adult);
             WriteFamiliesToFile();
         }
 
-        public void AddPet(Pet pet, Child child) {
+        public void AddChild(Child child, Family family) {
+            int max = People.Max(p => p.Id);
+            child.Id = (++max);
+            People.Add(child);
+            family.Children.Add(child);
+            WriteFamiliesToFile();
+        }
+        
+
+        public void AddPet(Pet pet, Family family, Child child) {
             int max = Pets.Max(p => p.Id);
             pet.Id = (++max);
             Pets.Add(pet);
             child.Pets.Add(pet);
+            family.Pets.Add(pet);
             WriteFamiliesToFile();
         }
         

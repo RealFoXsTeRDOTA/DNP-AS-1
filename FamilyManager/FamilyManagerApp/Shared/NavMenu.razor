@@ -1,5 +1,4 @@
-﻿@using FamilyManagerApp.Data
-<div class="top-row pl-4 navbar navbar-dark">
+﻿<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">LoginSystem</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -15,16 +14,16 @@
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="FamilyList">
-                <span class="oi oi-list" aria-hidden="true"/> Families
+                <span class="oi oi-list" aria-hidden="true"/> Family List
             </NavLink>
         </li>
-        <AuthorizeView Policy=@Policies.IsAdmin>
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="/addfamilymember">
-                    <span class="oi oi-plus"></span> New Family Member
-                </NavLink>
-            </li>
-        </AuthorizeView>
+        <AuthorizeView>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="/addfamilymember">
+                            <span class="oi oi-plus"></span> Add a New Memeber
+                        </NavLink>
+                    </li>
+                </AuthorizeView>
         <AuthorizeView>
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="/stats">
@@ -43,4 +42,5 @@
     private void ToggleNavMenu() {
         collapseNavMenu = !collapseNavMenu;
     }
+
 }
