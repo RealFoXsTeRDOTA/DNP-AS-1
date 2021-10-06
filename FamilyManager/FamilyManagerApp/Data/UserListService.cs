@@ -24,15 +24,20 @@ namespace FamilyManagerApp.Data {
 
         private void seed() {
             users = new List<User>();
-            users.Add(new User("Adriana", "1234"));
+            users.Add(new User() {
+                Username = "Adriana",
+                Password = "1234",
+                Role = Role.Admin
+            });
         }
         
         private void WriteUsersToFile() {
             string usersAsJson = JsonSerializer.Serialize(users);
             File.WriteAllText(UsersFile, usersAsJson);
         }
+        
         public User ValidateUser(string userName, string password) {
-            User first = users.FirstOrDefault(user => user.Username.Equals(userName));
+            User first = users.FirstOrDefault(user => user.Username.Equals(userName, StringComparison.CurrentCultureIgnoreCase));
             if (first == null)
                 throw new Exception("User not found");
             if (!first.Password.Equals(password))
@@ -40,8 +45,8 @@ namespace FamilyManagerApp.Data {
             return first;
         }
 
-        public void AddUser(string username, string password) {
-            users.Add(new User(username, password));
+        public void AddUser(User user) {
+            users.Add(user);
             WriteUsersToFile();
         }
 
