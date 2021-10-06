@@ -81,16 +81,7 @@
         <!-- slide 2-->
         <div class="carousel-item @secondSlide" id="pet-slide">
             <h1>@family.GetUniqueKey()'s Pets</h1>
-            <p>Search for a particular pet: <input type="text" @oninput="@((arg) => FilterByPetName(arg))" style="width: 200px"/></p>
-            <p>
-                Filter by species:
-                <select name="species" @oninput="@((arg) => FilterBySpecies(arg))">
-                    <option value="all">All</option>
-                    <option value="dog">Dog</option>
-                    <option value="cat">Cat</option>
-                    <option value="other">Other</option>
-                </select>
-            </p>
+            
             @if (filteredPets == null) {
                 <p>
                     <em> Loading ...</em>
@@ -100,8 +91,19 @@
                 <p>
                     <em>This family doesn't have pets yet</em>
                 </p>
+                <img src="/Images/birdJava.jpg" width="500px" height="500px" /><br/>
             }
             else {
+                <p>Search for a particular pet: <input type="text" @oninput="@((arg) => FilterByPetName(arg))" style="width: 200px"/></p>
+                <p>
+                    Filter by species:
+                    <select name="species" @oninput="@((arg) => FilterBySpecies(arg))">
+                        <option value="all">All</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                        <option value="other">Other</option>
+                    </select>
+                </p>
                 <table class="table ">
                     <thead>
                     <tr>
@@ -167,10 +169,16 @@
     
 
     public void Manually(bool backwards) {
-        if (backwards)
+        if (backwards) {
             currentPosition--;
-        else
+            filteredPets = pets;
+            filteredFamilyMembers = familyMembers;
+        }
+        else {
             currentPosition++;
+            filteredPets = pets;
+            filteredFamilyMembers = familyMembers;
+        }
 
         ChangeSlide();
     }
@@ -233,15 +241,43 @@
     }
 
     private void FilterByPetName(ChangeEventArgs changeEventArgs) {
-    //TODO
+        List<Pet> pets = new List<Pet>();
+        foreach (var pet in family.Pets) {
+            if (pet.Name.ToLower().Contains(changeEventArgs.Value.ToString().ToLower()))
+                pets.Add(pet);
+        }
+        filteredPets = pets;
     }
 
     private void FilterBySpecies(ChangeEventArgs changeEventArgs) {
-    //TODO
+        List<Pet> pets = new List<Pet>();
+        if (changeEventArgs.Value.ToString().Equals("cat")) {
+            foreach (var pet in family.Pets) {
+                if(pet.Species.ToLower().Equals("cat"))
+                    pets.Add(pet);
+            }
+        }
+        else if (changeEventArgs.Value.ToString().Equals("dog")) {
+            foreach (var pet in family.Pets) {
+                if(pet.Species.ToLower().Equals("dog"))
+                    pets.Add(pet);
+            }
+        }
+        else if (changeEventArgs.Value.ToString().Equals("other")) {
+            foreach (var pet in family.Pets) {
+                if(!pet.Species.ToLower().Equals("cat") && !pet.Species.ToLower().Equals("dog"))
+                    pets.Add(pet);
+            }
+        }
+        else if (changeEventArgs.Value.ToString().Equals("all")) {
+            pets = family.Pets;
+        }
+        filteredPets = pets;
     }
 
     private void SortByPetName() {
-        throw new NotImplementedException();
+        var sort = filteredPets.OrderBy(name => name.Name);
+        filteredPets = sort.ToList();
     }
 
     protected override void GoBack() {
