@@ -35,8 +35,12 @@
                 Sex:
                 <input type="checkbox" checked="@person.Sex"/>
                 <label>@person.Sex</label>
-                <input type="checkbox"></input>
-                
+                @if (person.Sex.Equals("F")) {
+                    <input type="checkbox"/>
+                    <label>M</label> }
+                else {
+                    <input type="checkbox"/>
+                    <label>F</label> }
             </div>
             <div class="text mt-3">
                 <span>Eye Color: @person.EyeColor</span>
