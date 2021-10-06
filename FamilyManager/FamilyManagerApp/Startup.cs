@@ -33,7 +33,9 @@ namespace FamilyManagerApp {
             services.AddSingleton<IFamilyData, FamilyJSONData>();
             services.AddSingleton<IUserService, UserListService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-            services.AddAuthorization();
+            services.AddAuthorization(options => {
+                options.AddPolicy(Policies.IsAdmin, Policies.FollowsAdminPolicy());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

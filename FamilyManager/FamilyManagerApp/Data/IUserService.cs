@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using Models;
 
-namespace FileData {
+namespace FamilyManagerApp.Data {
     public interface IUserService {
         List<User> GetUserList();
         User ValidateUser(string username, string password);
-
-        void AddUser(string username, string password);
+        void AddUser(User user);
     }
 }

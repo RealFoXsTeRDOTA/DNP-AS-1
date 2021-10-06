@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -10,8 +11,7 @@ using Models;
 
 namespace FamilyManagerApp.Data {
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
-
-       private readonly IJSRuntime jsRuntime;
+        private readonly IJSRuntime jsRuntime;
         private readonly IUserService userService;
         private User cachedUser;
 
@@ -28,17 +28,17 @@ namespace FamilyManagerApp.Data {
                     User tmp = JsonSerializer.Deserialize<User>(userAsJson);
                     ValidateLogin(tmp.Username, tmp.Password);
                 }
+            } else {
+                identity = SetupClaimsForUser(cachedUser);
             }
-            else 
-                    identity = SetupClaimsForUser(cachedUser);
+            
             ClaimsPrincipal cachedClaimsPrincipal = new ClaimsPrincipal(identity);
             return await Task.FromResult(new AuthenticationState(cachedClaimsPrincipal));
         }
 
         public void ValidateLogin(string username, string password) {
-            Console.WriteLine("Validating login");
-            if (string.IsNullOrEmpty(username)) throw new Exception("Enter username");
-            if (string.IsNullOrEmpty(password)) throw new Exception("Enter password");
+            if (string.IsNullOrWhiteSpace(username)) throw new Exception("Please specify a username");
+            if (string.IsNullOrWhiteSpace(password)) throw new Exception("Please specify a password");
 
             ClaimsIdentity identity = new ClaimsIdentity();
             try {
@@ -55,17 +55,23 @@ namespace FamilyManagerApp.Data {
         }
 
         public void ValidateRegister(string username, string password, string confirmationPassword) {
-            if (string.IsNullOrEmpty(username)|| username.Trim().Equals("")) throw new Exception("Enter username");
-            if (string.IsNullOrEmpty(password) || password.Trim().Equals("")) throw new Exception("Enter password");
-            if (string.IsNullOrEmpty(confirmationPassword)) throw new Exception("Enter confirmationPassword");
+            if (string.IsNullOrWhiteSpace(username)) throw new Exception("Please specify a username");
+            if (string.IsNullOrWhiteSpace(password)) throw new Exception("Please specify a password");
+            if (string.IsNullOrWhiteSpace(confirmationPassword)) throw new Exception("Please confirm your password");
+            
             if (!password.Equals(confirmationPassword))
-                throw new Exception("Password and confirmation password do not match");
+                throw new Exception("Passwords do not match");
+            
             List<User> users = userService.GetUserList();
-            foreach (var user in users) {
-                if (user.Username.Equals(username.Trim()))
-                    throw new Exception("Username is already used");
+            if (users.FirstOrDefault(u => u.Username.Equals(username)) != null) {
+                throw new Exception("Username is already used");
             }
-            userService.AddUser(username.TrimStart().TrimEnd(), password.TrimStart().TrimEnd());
+            
+            userService.AddUser(new User() {
+                Username = username,
+                Password = password,
+                Role = Role.User
+            });
         }
 
         public void Logout() {
@@ -74,13 +80,11 @@ namespace FamilyManagerApp.Data {
             jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
         }
-
-       
-
+        
         private ClaimsIdentity SetupClaimsForUser(User user) {
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, user.Username));
-
+            claims.Add(new Claim(ClaimTypes.Role, user.Role.ToString()));
             ClaimsIdentity identity = new ClaimsIdentity(claims, "apiauth_type");
             return identity;
         }

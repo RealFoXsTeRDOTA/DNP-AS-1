@@ -10,23 +10,23 @@
 <div class="card mb-5">
     <h1 class="card-header mb-3">Statistics</h1>
     <div class="card-body row">
-        <div class="col-xl-4 col-md-12">
-            <p># of families: @families.Count()</p>
-            <p># of adults: @people.Count((p => p is Adult))</p>
-            <p># of children: @people.Count((p => p is Child))</p>
-            <p># of pets: @families.Sum(f => f.Pets.Count())</p>
+        <div class="col-xl-3 col-md-12">
+            <p>Total # of families: <strong>@families.Count()</strong></p>
+            <p>Total # of adults: <strong>@people.Count(p => p is Adult)</strong></p>
+            <p>Total # of children: <strong>@people.Count(p => p is Child)</strong></p>
+            <p>Total # of pets: <strong>@families.Sum(f => f.Pets.Count())</strong></p>
         </div>
         <div class="col-xl-4 col-md-12">
-            <p>Average # of people per family: @families.Average(f => f.Adults.Count() + f.Children.Count())</p>
-            <p>Average # of adults per family: @families.Average(f => f.Adults.Count())</p>
-            <p>Average # of children per family: @families.Average(f => f.Children.Count())</p>
-            <p>Average # of pets per family: @families.Average(f => f.Pets.Count() + f.Children.Sum(c => c.Pets.Count))</p>
+            <p>Average # of people per family: <strong>@families.Average(f => f.Adults.Count() + f.Children.Count())</strong></p>
+            <p>Average # of adults per family: <strong>@families.Average(f => f.Adults.Count())</strong></p>
+            <p>Average # of children per family: <strong>@families.Average(f => f.Children.Count())</strong></p>
+            <p>Average # of pets per family: <strong>@families.Average(f => f.Pets.Count() + f.Children.Sum(c => c.Pets.Count))</strong></p>
         </div>
-        <div class="col-xl-4 col-md-12">
-            <p># of families with single parents: @families.Count(f => f.Adults.Count() == 1)</p>
-            <p># of people with the last name 'Mcclure': @people.Count(p => p.LastName.Equals("Mcclure"))</p>
-            <p># of teachers: @people.Count(p => p is Adult adult && adult.JobTitle.JobTitle.Equals("Teacher"))</p>
-            <p># of children with an interest in drawing: @people.Count(p => p is Child child && child.Interests.Any(i => i.Type.Equals("Drawing")))</p>
+        <div class="col-xl-5 col-md-12">
+            <p>Total # of families with single parents: <strong>@families.Count(f => f.Adults.Count() == 1)</strong></p>
+            <p>Total # of people with the last name 'Mcclure': <strong>@people.Count(p => p.LastName.Equals("Mcclure"))</strong></p>
+            <p>Total # of teachers: <strong>@people.Count(p => p is Adult adult && adult.JobTitle.JobTitle.Equals("Teacher"))</strong></p>
+            <p>Total # of children with an interest in drawing: <strong>@people.Count(p => p is Child child && child.Interests.Any(i => i.Type.Equals("Drawing")))</strong></p>
         </div>
     </div>
 </div>
@@ -41,7 +41,7 @@
                     <RadzenGridLines Visible="true"/>
                     <RadzenAxisTitle Text="# of children"/>
                 </RadzenValueAxis>
-                <RadzenBarOptions Radius="5"/>
+                <RadzenBarOptions Radius="8"/>
                 <RadzenChartTooltipOptions Visible="false"/>
                 <RadzenLegend Visible="false"/>
             </RadzenChart>
@@ -54,7 +54,7 @@
                     <RadzenGridLines Visible="true"/>
                     <RadzenAxisTitle Text="# of pets"/>
                 </RadzenValueAxis>
-                <RadzenBarOptions Radius="5"/>
+                <RadzenBarOptions Radius="8"/>
                 <RadzenChartTooltipOptions Visible="false"/>
                 <RadzenLegend Visible="false"/>
             </RadzenChart>
@@ -97,14 +97,14 @@
     </div>
     <div class="row mb-5">
         <div class="col-lg-6 col-sm-12">
-            <h3 class="text-center">Height distribution</h3>
+            <h3 class="text-center">Height distribution (cm)</h3>
             <RadzenChart>
                 <RadzenPieSeries Data="@heights" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
                 <RadzenLegend Position="LegendPosition.Bottom"/>
             </RadzenChart>
         </div>
         <div class="col-lg-6 col-sm-12">
-            <h3 class="text-center">Weight distribution</h3>
+            <h3 class="text-center">Weight distribution (kg)</h3>
             <RadzenChart>
                 <RadzenPieSeries Data="@weights" Title="Amount" CategoryProperty="Name" ValueProperty="Count"/>
                 <RadzenLegend Position="LegendPosition.Bottom"/>
@@ -204,7 +204,7 @@
         });
         heights.Add(new ChartData() {
             Name = ">175",
-            Count = people.Count(p => p.Height is > 175 and < 191)
+            Count = people.Count(p => p.Height is > 175)
         });
         
         weights = new List<ChartData>();
