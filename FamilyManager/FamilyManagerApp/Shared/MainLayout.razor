@@ -7,7 +7,6 @@
 
     <div class="main">
         <div class="top-row px-4">
-            <button class="oi oi-action-undo" @onclick="GoBack">Back</button>
         </div>
 
         <div class="content px-4">
@@ -26,10 +25,4 @@
             NavigationManager.NavigateTo($"/LoginPage");
         }
     }
-
-    protected virtual void GoBack() {
-        // NavigationManager.NavigateTo(url);
-    }
-    
-
 }
