@@ -47,6 +47,22 @@ namespace FamilyManagerApp.Data
             return people;
         }
 
+        public IList<Adult> GetAdults() {
+            List<Adult> Adults = new List<Adult>();
+            foreach (var fam in Families) {
+                Adults.AddRange(fam.Adults);
+            }
+            return Adults;
+        }
+
+        public IList<Child> GetChildren() {
+            List<Child> Children = new List<Child>();
+            foreach (var fam in Families) {
+                Children.AddRange(fam.Children);
+            }
+            return Children;
+        }
+
         public IList<Pet> GetPets() {
             List<Pet> pets = new List<Pet>(Pets);
             return pets;
@@ -114,8 +130,13 @@ namespace FamilyManagerApp.Data
         }
         
 
-        public Person GetPerson(int personId) {
-            return People.FirstOrDefault(p => p.Id == personId);
+        public Person GetPerson(int id) {
+            return People.FirstOrDefault(p => p.Id == id);
+        }
+
+        public Person GetPersonByIdFirstLastName(int id, string firstname, string lastname) {
+            return People.FirstOrDefault(
+                p => p.Id == id && p.FirstName.Equals(firstname) && p.LastName.Equals(lastname));
         }
 
         public Pet GetPet(int petId) {

@@ -8,6 +8,8 @@ namespace FamilyManagerApp.Data
     {
         IList<Family> GetFamilies();
         IList<Person> GetPeople();
+        IList<Adult> GetAdults();
+        IList<Child> GetChildren();
         IList<Pet> GetPets();
         void AddFamily(Family family);
         void AddPerson(Person person, Family family);
@@ -18,7 +20,8 @@ namespace FamilyManagerApp.Data
         void RemovePerson(int personId);
         void RemovePet(int petId);
         Family GetFamily(string streetName, int houseNumber);
-        Person GetPerson(int personId);
+        Person GetPerson(int id);
+        Person GetPersonByIdFirstLastName(int id, string firstname, string lastname);
         Pet GetPet(int petId);
         void UpdateFamily(Family family);
         void UpdatePerson(Person person);
