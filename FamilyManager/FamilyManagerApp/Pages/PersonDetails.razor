@@ -3,8 +3,44 @@
 @using Data
 @inject NavigationManager navigationManager;
 @inject IFamilyData FamilyData;
-<h3>Person</h3>
-<p>@person.FirstName  @person.LastName</p>
+
+<div class="container mt-6 mb-6 p-6 my-auto h-100">
+    <div class="card p-4">
+        <div class=" image d-flex flex-column justify-content-center align-items-center">
+            @if (person.Sex.Equals("F")) {
+                <button class="btn btn-secondary mt-3">
+                    <img href="Data/girl.jpg" height="100" width="100"/><br/>
+                </button>
+            }
+            else {
+                <button class="btn btn-secondary mt-3">
+                    <img src="https://pin.it/7k80q7v" height="100" width="100"/><br/>
+                </button>
+            }
+            <div>
+                <span class="name mt-3">@person.FirstName @person.LastName</span>
+            </div>
+            <div>
+                <span class="idd mt-3">Age: @person.Age</span>
+            </div>
+            <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                <span class="idd1">Height: @person.Height</span>
+            </div>
+            <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                <span class="number">Sex: @person.Sex </span>
+            </div>
+            <div class="text mt-3">
+                <span>Eye Color: @person.EyeColor</span>
+            </div>
+            <div class="px-2 rounded mt-3">
+                <span class="join">Hair Color: @person.HairColor</span>
+            </div>
+            <div class=" d-flex mt-3">
+                <button class="btn1 btn-primary">Edit Person's Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
 @code {
     [Parameter]
     public int id { set; get; }
