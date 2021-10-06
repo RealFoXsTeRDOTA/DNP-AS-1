@@ -1,14 +1,11 @@
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 <div class="page">
-    <div class="sidebar">
+    <div class="navbar">
         <NavMenu/>
     </div>
 
     <div class="main">
-        <div class="top-row px-4">
-        </div>
-
         <div class="content px-4">
             @Body
         </div>
@@ -25,4 +22,10 @@
             NavigationManager.NavigateTo($"/LoginPage");
         }
     }
+
+    protected virtual void GoBack() {
+        // NavigationManager.NavigateTo(url);
+    }
+    
+
 }
