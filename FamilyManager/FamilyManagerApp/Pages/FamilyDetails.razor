@@ -15,14 +15,14 @@
         <li data-target="#carousel_family" data-slide-to="0" class="@firstSlide"></li>
         <li data-target="#carousel_family" data-slide-to="1" class="@secondSlide"></li>
     </ol>
-    <a class="carousel-control-prev" role="button" data-slide="prev" @onclick="ChangeSlide">
-                <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: #3a0647;"/>
-            </a>
+    <a class="carousel-control-prev" role="button" data-slide="prev" @onclick="@(()=>Manually(false))">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: #3a0647;"/>
+    </a>
     <!--carousel inner-->
     <div class="carousel-inner col-9">
         <!--controls - have to be fixed -->
-            
-         
+
+
         <!--slide 1-->
         <div class="carousel-item @firstSlide" id="family-slide">
             <h1>@family.GetUniqueKey()</h1>
@@ -124,12 +124,12 @@
                 </table>
             }
         </div>
-   
+
     </div>
-    <a class="carousel-control-next" role="button" data-slide="next" @onclick="ChangeSlide">
-                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: #3a0647"/>
-                </a>
-    </div>
+    <a class="carousel-control-next" role="button" data-slide="next" @onclick="@(()=>Manually(true))">
+        <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: #3a0647"/>
+    </a>
+</div>
 
 
 @code {
@@ -155,9 +155,6 @@
     int currentPosition = 0;
     int currentSlide = 0;
 
-    CancellationTokenSource cts;
-    CancellationToken ct;
-
     protected override async Task OnInitializedAsync() {
         family = familyData.GetFamily(Address, Number);
         familyMembers = family.GetAllMembers();
@@ -165,25 +162,11 @@
 
         pets = family.Pets;
         filteredPets = pets;
-
-    //carousel stuff
-        cts = new CancellationTokenSource();
-        ct = cts.Token;
-    // Manually(true);
+        
     }
-
-    public async Task Walkthrough(CancellationToken ct) {
-        while (!ct.IsCancellationRequested) {
-            await Task.Delay(5000, ct);
-            currentPosition++;
-            ChangeSlide();
-            await InvokeAsync(() => this.StateHasChanged());
-        }
-    }
+    
 
     public void Manually(bool backwards) {
-        cts.Cancel();
-
         if (backwards)
             currentPosition--;
         else
