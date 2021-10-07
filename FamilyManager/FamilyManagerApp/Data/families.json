@@ -1,28 +1,5 @@
 [
   {
-    "StreetName": "Bay Avenue",
-    "HouseNumber": 1,
-    "Adults": [
-      {
-        "JobTitle": {
-          "JobTitle": "Mascot",
-          "Salary": 99821
-        },
-        "Id": 0,
-        "FirstName": "Yasmine",
-        "LastName": "Baxter",
-        "HairColor": "Black",
-        "EyeColor": "Brown",
-        "Age": 58,
-        "Weight": 39.8,
-        "Height": 174,
-        "Sex": "F"
-      }
-    ],
-    "Children": [],
-    "Pets": []
-  },
-  {
     "StreetName": "Innovation Avenue",
     "HouseNumber": 1,
     "Adults": [
@@ -1116,72 +1093,6 @@
         "Weight": 94.2,
         "Height": 160,
         "Sex": "M"
-      }
-    ],
-    "Pets": []
-  },
-  {
-    "StreetName": "Easy Street",
-    "HouseNumber": 1,
-    "Adults": [
-      {
-        "JobTitle": {
-          "JobTitle": "Call Center Agent",
-          "Salary": 20308
-        },
-        "Id": 14,
-        "FirstName": "Isiah",
-        "LastName": "Esparza",
-        "HairColor": "Brown",
-        "EyeColor": "Brown",
-        "Age": 44,
-        "Weight": 81.8,
-        "Height": 172,
-        "Sex": "M"
-      }
-    ],
-    "Children": [
-      {
-        "Interests": [
-          {
-            "Type": "Hockey",
-            "Description": "Not the one on ice"
-          },
-          {
-            "Type": "Tractors",
-            "Description": "My nephew loves these"
-          },
-          {
-            "Type": "Choir Singing",
-            "Description": "Aka covey super spreader event"
-          },
-          {
-            "Type": "Bowling",
-            "Description": "Balls to the pins"
-          },
-          {
-            "Type": "Ninja Turtles",
-            "Description": "Young, genetically modified, secret assassin tortoise"
-          },
-          {
-            "Type": "Scout",
-            "Description": "Gotta get all the emblems"
-          },
-          {
-            "Type": "Drawing",
-            "Description": "Or doodling"
-          }
-        ],
-        "Pets": [],
-        "Id": 31,
-        "FirstName": "Audriana",
-        "LastName": "Esparza",
-        "HairColor": "Black",
-        "EyeColor": "Brown",
-        "Age": 13,
-        "Weight": 45.73,
-        "Height": 157,
-        "Sex": "F"
       }
     ],
     "Pets": []
