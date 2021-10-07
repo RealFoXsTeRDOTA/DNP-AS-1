@@ -1,4 +1,7 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@using FamilyManagerApp.Data
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Family Manager</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -20,7 +23,7 @@
             </li>
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="/addfamilymember">
-                    <span class="oi oi-plus"></span> Add a New Memeber
+                    <span class="oi oi-plus"></span> Add a New Member
                 </NavLink>
             </li>
         </AuthorizeView>
@@ -28,6 +31,13 @@
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="/stats">
                     <span class="oi oi-bar-chart"></span> Statistics
+                </NavLink>
+            </li>
+        </AuthorizeView>
+        <AuthorizeView>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" @onclick="PerformLogout">
+                    <span class="oi oi-account-logout"></span> Logout
                 </NavLink>
             </li>
         </AuthorizeView>
@@ -43,4 +53,10 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
-}
+    public async Task PerformLogout() {
+        ((CustomAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+        NavigationManager.NavigateTo("/LoginPage");
+    }
+
+} 
+

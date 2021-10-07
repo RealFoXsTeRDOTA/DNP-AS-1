@@ -7,6 +7,7 @@
 <div class="container mt-6 mb-6 p-6 my-auto h-100 w-50">
     <div class="card p-4">
         <div class=" image d-flex flex-column justify-content-center align-items-center">
+            <div class="d-flex flex-row justify-content-center mt-3">
             @if (person.Sex.Equals("F")) {
                 <button class="btn btn-secondary mt-3">
                     <img src="/Images/girl.jpg" height="100" width="100"/><br/>
@@ -17,12 +18,12 @@
                     <img src="/Images/boy.png" height="100" width="100"/><br/>
                 </button>
             }
-          
-            <div>
-                <span class="name mt-3">@person.FirstName @person.LastName</span>
             </div>
             <div>
-                <span class="idd mt-3">Age: @person.Age</span>
+                <span class="mt-3">@person.FirstName @person.LastName</span>
+            </div>
+            <div>
+                <span class="mt-3">Age: @person.Age</span>
             </div>
             <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                 <span class="idd1">Height: @person.Height</span>
@@ -36,10 +37,12 @@
                 <label>@person.Sex</label><br/>
                 @if (person.Sex.Equals("F")) {
                     <input type="checkbox"/>
-                    <label>M</label> }
+                    <label>M</label>
+                }
                 else {
                     <input type="checkbox"/>
-                    <label>F</label> }
+                    <label>F</label>
+                }
             </div>
             <div class="text mt-3">
                 <span>Eye Color: @person.EyeColor</span>
@@ -47,7 +50,7 @@
             <div class="px-2 rounded mt-3">
                 <span class="join">Hair Color: @person.HairColor</span>
             </div>
-            @if(person is Adult) {
+            @if (person is Adult) {
                 Adult adult = (Adult) person;
                 <div class="px-2 rounded mt-3">
                     <span>Job title: @adult.JobTitle.JobTitle</span>

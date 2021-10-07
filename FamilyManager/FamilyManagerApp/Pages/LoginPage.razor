@@ -8,8 +8,7 @@
 <div class="card w-50" >
     <h4 class="card-header">Login</h4>
     <div class="card-body">
-        <AuthorizeView>
-            <NotAuthorized>
+        <NotAuthorized>
                 <div class="form-group">
                     <label>Username</label>
                     <input class="form-control" type="text" placeholder="Username" @bind-value="username"/>
@@ -19,13 +18,9 @@
                     <input class="form-control" type="Password" placeholder="Password" @bind-value="password"/>
                 </div>
                 <div style="color:red">@errorMessage</div>
-                <button class =" btn btn-primary mr-1" @onclick="PerformLogin">Login</button> 
+                <button class =" btn btn-primary mr-1" @onclick="PerformLogin" >Login</button> 
                 <NavLink href="/RegisterPage" class ="btn btn-link">Register</NavLink>
             </NotAuthorized>
-            <Authorized>
-                <a href="" @onclick="PerformLogout">Log out</a>
-            </Authorized>
-        </AuthorizeView>
     </div>
 </div>
 </div>
@@ -41,23 +36,10 @@
             ((CustomAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
             username = "";
             password = "";
-            NavigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo("/FamilyList");
         }
         catch (Exception e) {
             errorMessage = e.Message;
-        }
-    }
-
-    public async Task PerformLogout() {
-        errorMessage = "";
-        username = "";
-        password = "";
-        try {
-            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).Logout();
-            NavigationManager.NavigateTo("/");
-        }
-        catch (Exception e) {
-            
         }
     }
 }
