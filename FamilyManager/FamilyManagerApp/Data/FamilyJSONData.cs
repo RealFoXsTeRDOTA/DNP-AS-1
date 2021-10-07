@@ -174,26 +174,18 @@ namespace FamilyManagerApp.Data
             WriteFamiliesToFile();
         }
 
-        public ISet<string> GetEyeColors() {
-            ISet<string> output = new HashSet<string>();
-            foreach (Person person in People) {
-                output.Add(person.EyeColor);
-            }
-
-            return output;
+        public IList<string> GetEyeColors() {
+            return People.Select(p => p.EyeColor).Distinct().ToList();
         }
 
-        public ISet<string> GetHairColors() {
-            ISet<string> output = new HashSet<string>();
-            foreach (Person person in People) {
-                output.Add(person.HairColor);
-            }
-
-            return output;
+        public IList<string> GetHairColors() {
+            return People.Select(p => p.HairColor).Distinct().ToList();
         }
 
         private void WriteFamiliesToFile() {
-            string familiesAsJson = JsonSerializer.Serialize(Families);
+            string familiesAsJson = JsonSerializer.Serialize(Families, new JsonSerializerOptions() {
+                WriteIndented = true
+            });
             File.WriteAllText(FamilyFile, familiesAsJson);
         }
 

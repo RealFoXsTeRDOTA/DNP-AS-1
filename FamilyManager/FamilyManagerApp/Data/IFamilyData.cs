@@ -27,7 +27,7 @@ namespace FamilyManagerApp.Data
         void UpdateFamily(Family family);
         void UpdatePerson(Person person);
         void UpdatePet(Pet pet);
-        ISet<string> GetEyeColors();
-        ISet<string> GetHairColors();
+        IList<string> GetEyeColors();
+        IList<string> GetHairColors();
     }
 }

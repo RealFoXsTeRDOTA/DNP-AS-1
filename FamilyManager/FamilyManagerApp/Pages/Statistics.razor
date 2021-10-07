@@ -17,10 +17,10 @@
             <p>Total # of pets: <strong>@families.Sum(f => f.Pets.Count())</strong></p>
         </div>
         <div class="col-xl-4 col-md-12">
-            <p>Average # of people per family: <strong>@families.Average(f => f.Adults.Count() + f.Children.Count())</strong></p>
-            <p>Average # of adults per family: <strong>@families.Average(f => f.Adults.Count())</strong></p>
-            <p>Average # of children per family: <strong>@families.Average(f => f.Children.Count())</strong></p>
-            <p>Average # of pets per family: <strong>@families.Average(f => f.Pets.Count() + f.Children.Sum(c => c.Pets.Count))</strong></p>
+            <p>Average # of people per family: <strong>@Math.Round(families.Average(f => f.Adults.Count() + f.Children.Count()), 2)</strong></p>
+            <p>Average # of adults per family: <strong>@Math.Round(families.Average(f => f.Adults.Count()), 2)</strong></p>
+            <p>Average # of children per family: <strong>@Math.Round(families.Average(f => f.Children.Count()), 2)</strong></p>
+            <p>Average # of pets per family: <strong>@Math.Round(families.Average(f => f.Pets.Count() + f.Children.Sum(c => c.Pets.Count)), 2)</strong></p>
         </div>
         <div class="col-xl-5 col-md-12">
             <p>Total # of families with single parents: <strong>@families.Count(f => f.Adults.Count() == 1)</strong></p>
