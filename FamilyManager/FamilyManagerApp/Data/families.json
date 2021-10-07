@@ -1,6 +1,5 @@
 [
   {
-    "Name": null,
     "StreetName": "Bay Avenue",
     "HouseNumber": 1,
     "Adults": [
@@ -24,7 +23,6 @@
     "Pets": []
   },
   {
-    "Name": null,
     "StreetName": "Innovation Avenue",
     "HouseNumber": 1,
     "Adults": [
@@ -146,7 +144,6 @@
     "Pets": []
   },
   {
-    "Name": null,
     "StreetName": "William Street",
     "HouseNumber": 1,
     "Adults": [
@@ -265,7 +262,6 @@
     ]
   },
   {
-    "Name": null,
     "StreetName": "Mitch Cromwood Avenue",
     "HouseNumber": 1,
     "Adults": [
@@ -416,7 +412,6 @@
     "Pets": []
   },
   {
-    "Name": null,
     "StreetName": "Elgin Avenue",
     "HouseNumber": 1,
     "Adults": [
@@ -604,7 +599,6 @@
     "Pets": []
   },
   {
-    "Name": null,
     "StreetName": "Railway Street",
     "HouseNumber": 1,
     "Adults": [
@@ -773,7 +767,6 @@
     ]
   },
   {
-    "Name": null,
     "StreetName": "Airport Avenue",
     "HouseNumber": 1,
     "Adults": [
@@ -886,7 +879,6 @@
     ]
   },
   {
-    "Name": null,
     "StreetName": "Sycamore Drive",
     "HouseNumber": 1,
     "Adults": [
@@ -967,7 +959,6 @@
     "Pets": []
   },
   {
-    "Name": null,
     "StreetName": "Hazlett Avenue",
     "HouseNumber": 1,
     "Adults": [
@@ -1130,7 +1121,6 @@
     "Pets": []
   },
   {
-    "Name": null,
     "StreetName": "Easy Street",
     "HouseNumber": 1,
     "Adults": [
@@ -1191,49 +1181,6 @@
         "Age": 13,
         "Weight": 45.73,
         "Height": 157,
-        "Sex": "F"
-      }
-    ],
-    "Pets": []
-  },
-  {
-    "Name": null,
-    "StreetName": "Somestreet",
-    "HouseNumber": 4,
-    "Adults": [
-      {
-        "JobTitle": {
-          "JobTitle": "Somejob",
-          "Salary": 74628
-        },
-        "Id": 32,
-        "FirstName": "Hooga",
-        "LastName": "Booga",
-        "HairColor": "Leverpostej",
-        "EyeColor": "Grey",
-        "Age": 75,
-        "Weight": 302,
-        "Height": 185,
-        "Sex": "M"
-      }
-    ],
-    "Children": [
-      {
-        "Interests": [
-          {
-            "Type": "Drawing",
-            "Description": "I love drawing"
-          }
-        ],
-        "Pets": [],
-        "Id": 33,
-        "FirstName": "Wooga",
-        "LastName": "Booga",
-        "HairColor": "Blond",
-        "EyeColor": "Blue",
-        "Age": 7,
-        "Weight": 74,
-        "Height": 201,
         "Sex": "F"
       }
     ],
