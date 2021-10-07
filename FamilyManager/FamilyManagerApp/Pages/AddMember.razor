@@ -3,132 +3,140 @@
 @using Models
 @inject NavigationManager NavMng;
 @inject IFamilyData FamilyData;
-
+<div class="d-flex justify-content-center">
 <h3>Add a New @type</h3>
-
-@if (type.Equals("Pet")) {
-    <EditForm Model="@pet" OnSubmit="@AddPet">
-        <DataAnnotationsValidator/>
-        <ValidationSummary/>
-        <p>Child:</p>
-        <div class="form-group"> 
-            <InputSelect name="child" @bind-Value="person.FirstName">
-                <option value="None">None</option>
-                @foreach (var child in family.Children) {
-                    <option value="@child.FirstName"> @child.FirstName</option>
-                }
-            </InputSelect>
-        </div>
-        <p>Name:</p>
-        <div class="form-group">
-            <InputText @bind-Value="pet.Name"/>
-        </div>
-        <p>Species:</p>
-        <div class="form-group"> 
-            <InputText @bind-Value="pet.Species"/>
-        </div>
-        <p>Age:</p>
-        <div class="form-group">
-            <InputNumber @bind-Value="pet.Age"/>
-        </div>
-        <p class="actions">
-            <button class="btn btn-outline-dark" type="submit">Add Pet</button>
-        </p>
-    </EditForm>
-    
-}
-else {
-    <EditForm Model="@person" OnSubmit="@AddPerson">
-        <DataAnnotationsValidator/>
-        <ValidationSummary/>
-        <p>First Name:</p>
-        <div class="form-group">
-            <InputText @bind-Value="person.FirstName"/>
-        </div>
-        <p>Last Name:</p>
-        <div class="form-group"> 
-            <InputText @bind-Value="person.LastName"/>
-        </div>
-        <p>Hair color:</p>
-        <div class="form-group">
-            <InputSelect name="hair_color" @bind-Value="person.HairColor">
-                <option>Hair colour</option>
-                <option value="Black">Black</option>
-                <option value="Grey">Grey</option>
-                <option value="Blond">Blond</option>
-                <option value="Leverpostej">Leverpostej</option>
-                <option value="White">White</option>
-                <option value="Blue">Blue</option>
-            </InputSelect>
-        </div>
-        <p>Eye color:</p>
-        <div class="form-group"> 
-            <InputSelect name="eye_color" @bind-Value="person.EyeColor">
-                <option>Eye colour</option>
-                <option value="Blue">Blue</option>
-                <option value="Hazel">Hazel</option>
-                <option value="Grey">Grey</option>
-                <option value="Amber">Amber</option>
-                <option value="Brown">Brown</option>
-            </InputSelect>
-        </div>
-        <p>Age:</p>
-        <div class="form-group">
-            <InputNumber @bind-Value="person.Age"/>
-        </div>
-        <p>Height:</p>
-        <div class="form-group">
-            <InputNumber @bind-Value="person.Height"/>
-        </div>
-        <p>Weight:</p>
-        <div class="form-group">
-            <InputNumber @bind-Value="person.Weight"/>
-        </div>
-        <p>Sex:</p>
-        <div class="form-group"> 
-            <InputSelect name="Sex" @bind-Value="person.Sex">
-                <option>Sex</option>
-                <option value="F">F</option>
-                <option value="M">M</option>
-            </InputSelect>
-        </div>
-        @if (type.Equals("Adult")) {
-            <EditForm  Model="@job" Context="j">
-                <p>Job title:</p>
-                <div class="form-group">
-                    <InputText @bind-Value="job.JobTitle"/>
+</div>
+<div class="container mt-6 mb-6 p-6 my-auto h-100 w-50">
+    <div class="card p-4">
+        <div class=" image d-flex flex-column justify-content-center align-items-center col-sm">
+            @if (type.Equals("Pet")) {
+                <EditForm Model="@pet" OnSubmit="@AddPet">
+                    <DataAnnotationsValidator/>
+                    <ValidationSummary/>
+                    <p>Child:</p>
+                    <div class="form-group col-sm">
+                        <InputSelect name="child" @bind-Value="person.FirstName">
+                            <option value="None">None</option>
+                            @foreach (var child in family.Children) {
+                                <option value="@child.FirstName"> @child.FirstName</option>
+                            }
+                        </InputSelect>
+                    </div>
+                    <p>Name:</p>
+                    <div class="form-group">
+                        <InputText @bind-Value="pet.Name"/>
+                    </div>
+                    <p>Species:</p>
+                    <div class="form-group col-sm">
+                        <InputText @bind-Value="pet.Species"/>
+                    </div>
+                    <p>Age:</p>
+                    <div class="form-group">
+                        <InputNumber @bind-Value="pet.Age"/>
+                    </div>
+                    <p class="actions">
+                        <button class="btn btn-outline-dark" type="submit">Add Pet</button>
+                    </p>
+                </EditForm>
+            }
+            else {
+                <div class=" image d-flex flex-column justify-content-center align-items-center col-sm">
+                    <EditForm Model="@person" OnSubmit="@AddPerson">
+                        <DataAnnotationsValidator/>
+                        <ValidationSummary/>
+                        <p>First Name:</p>
+                        <div class="form-group">
+                            <InputText @bind-Value="person.FirstName"/>
+                        </div>
+                        <p>Last Name:</p>
+                        <div class="form-group">
+                            <InputText @bind-Value="person.LastName"/>
+                        </div>
+                        <p>Hair color:</p>
+                        <div class="form-group">
+                            <InputSelect name="hair_color" @bind-Value="person.HairColor">
+                                <option value="Black">Black</option>
+                                <option value="Grey">Grey</option>
+                                <option value="Blond">Blond</option>
+                                <option value="Leverpostej">Leverpostej</option>
+                                <option value="White">White</option>
+                                <option value="Blue">Blue</option>
+                            </InputSelect>
+                        </div>
+                        <p>Eye color:</p>
+                        <div class="form-group">
+                            <InputSelect name="eye_color" @bind-Value="person.EyeColor">
+                                <option value="Blue">Blue</option>
+                                <option value="Hazel">Hazel</option>
+                                <option value="Grey">Grey</option>
+                                <option value="Amber">Amber</option>
+                                <option value="Brown">Brown</option>
+                            </InputSelect>
+                        </div>
+                        <p>Age:</p>
+                        <div class="form-group">
+                            <InputNumber @bind-Value="person.Age"/>
+                        </div>
+                        <p>Height:</p>
+                        <div class="form-group">
+                            <InputNumber @bind-Value="person.Height"/>
+                        </div>
+                        <p>Weight:</p>
+                        <div class="form-group">
+                            <InputNumber @bind-Value="person.Weight"/>
+                        </div>
+                        <p>Sex:</p>
+                        <div class="form-group">
+                            <InputSelect name="Sex" @bind-Value="person.Sex">
+                                <option value="F">F</option>
+                                <option value="M">M</option>
+                            </InputSelect>
+                        </div>
+                        @if (type.Equals("Adult")) {
+                            <EditForm Model="@job" Context="j">
+                                <p>Job title:</p>
+                                <div class="form-group">
+                                    <InputText @bind-Value="job.JobTitle"/>
+                                </div>
+                                <p>Salary:</p>
+                                <div class="form-group">
+                                    <InputNumber @bind-Value="job.Salary"/>
+                                </div>
+                            </EditForm>
+                        }
+                        else {
+                            <EditForm Model="@interest" Context="i">
+                                <p>Type:</p>
+                                <div class="form-group">
+                                    <InputText @bind-Value="interest.Type"/>
+                                </div>
+                                <p>Description:</p>
+                                <div class="form-group">
+                                    <InputText @bind-Value="interest.Description"/>
+                                </div>
+                            </EditForm>
+                        }
+                        <p class="actions">
+                            <button class="btn btn-outline-dark" type="submit">Add Person</button>
+                        </p>
+                    </EditForm>
                 </div>
-                <p>Salary:</p>
-                <div class="form-group"> 
-                    <InputNumber @bind-Value="job.Salary"/>
-                </div>
-            </EditForm>
-        }
-        else {
-            <EditForm  Model="@interest" Context="i">
-                <p>Interest Type:</p>
-                <div class="form-group">
-                    <InputText @bind-Value="interest.Type"/>
-                </div>
-                <p>Description:</p>
-                <div class="form-group"> 
-                    <InputText @bind-Value="interest.Description"/>
-                </div>
-            </EditForm>
-        }
-        <p class="actions">
-            <button class="btn btn-outline-dark" type="submit">Add Person</button>
-        </p>    
-    </EditForm>
-}
+            }
+        </div>
+    </div>
+</div>
 
 @code {
+
     [Parameter]
     public string streetName { get; set; }
+
     [Parameter]
     public int houseNumber { get; set; }
+
     [Parameter]
     public string type { get; set; }
+
     private Family family = new Family();
     private Person person = new Person();
     private Pet pet = new Pet();
@@ -138,7 +146,7 @@ else {
     protected override async Task OnInitializedAsync() {
         family = FamilyData.GetFamily(streetName, houseNumber);
     }
-    
+
     private void AddPet() {
         if (!person.FirstName.Equals("None"))
             FamilyData.AddPet(pet, family, family.Children.First(c => c.FirstName.Equals(person.FirstName)));
@@ -149,7 +157,7 @@ else {
 
     private void AddPerson() {
         if (type.Equals("Adult")) {
-            FamilyData.AddAdult( new Adult() {
+            FamilyData.AddAdult(new Adult() {
                 FirstName = person.FirstName,
                 LastName = person.LastName,
                 EyeColor = person.EyeColor,
@@ -165,7 +173,7 @@ else {
             }, family);
         }
         else {
-            FamilyData.AddChild( new Child() {
+            FamilyData.AddChild(new Child() {
                 FirstName = person.FirstName,
                 LastName = person.LastName,
                 EyeColor = person.EyeColor,
@@ -180,8 +188,9 @@ else {
                         Type = interest.Type
                     }
                 }
-            },family);
+            }, family);
         }
         NavMng.NavigateTo("/addfamilymember");
     }
+}            
 }
