@@ -10,7 +10,7 @@
     <div class="card p-4">
         <div class=" image d-flex flex-column justify-content-center align-items-center col-sm">
             @if (type.Equals("Pet")) {
-                <EditForm Model="@pet" OnSubmit="@AddPet">
+                <EditForm Model="@pet" OnValidSubmit="@AddPet">
                     <DataAnnotationsValidator/>
                     <ValidationSummary/>
                     <p>Child:</p>
@@ -41,7 +41,7 @@
             }
             else {
                 <div class=" image d-flex flex-column justify-content-center align-items-center col-sm">
-                    <EditForm Model="@person" OnSubmit="@AddPerson">
+                    <EditForm Model="@person" OnValidSubmit="@AddPerson">
                         <DataAnnotationsValidator/>
                         <ValidationSummary/>
                         <p>First Name:</p>
@@ -61,7 +61,7 @@
                                 <option value="Leverpostej">Leverpostej</option>
                                 <option value="White">White</option>
                                 <option value="Blue">Blue</option>
-                            </InputSelect>
+                            </InputSelect >
                         </div>
                         <p>Eye color:</p>
                         <div class="form-group">
@@ -142,9 +142,15 @@
     private Pet pet = new Pet();
     private Job job = new Job();
     private Interest interest = new Interest();
+    private string hairColor;
+    private string eyeColor;
+    private string sex;
 
     protected override async Task OnInitializedAsync() {
         family = FamilyData.GetFamily(streetName, houseNumber);
+        person.HairColor = "Black";
+        person.EyeColor = "Blue";
+        person.Sex = "F";
     }
 
     private void AddPet() {
