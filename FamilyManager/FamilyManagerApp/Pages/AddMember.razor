@@ -52,6 +52,7 @@ else {
         <p>Hair color:</p>
         <div class="form-group">
             <InputSelect name="hair_color" @bind-Value="person.HairColor">
+                <option>Hair colour</option>
                 <option value="Black">Black</option>
                 <option value="Grey">Grey</option>
                 <option value="Blond">Blond</option>
@@ -63,6 +64,7 @@ else {
         <p>Eye color:</p>
         <div class="form-group"> 
             <InputSelect name="eye_color" @bind-Value="person.EyeColor">
+                <option>Eye colour</option>
                 <option value="Blue">Blue</option>
                 <option value="Hazel">Hazel</option>
                 <option value="Grey">Grey</option>
@@ -85,6 +87,7 @@ else {
         <p>Sex:</p>
         <div class="form-group"> 
             <InputSelect name="Sex" @bind-Value="person.Sex">
+                <option>Sex</option>
                 <option value="F">F</option>
                 <option value="M">M</option>
             </InputSelect>
@@ -103,7 +106,7 @@ else {
         }
         else {
             <EditForm  Model="@interest" Context="i">
-                <p>Type:</p>
+                <p>Interest Type:</p>
                 <div class="form-group">
                     <InputText @bind-Value="interest.Type"/>
                 </div>
