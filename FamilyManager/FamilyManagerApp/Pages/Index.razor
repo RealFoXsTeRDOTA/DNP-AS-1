@@ -1,5 +1,9 @@
 @page "/"
+<AuthorizeView>
+    <NotAuthorized>
+         <LoginPage/>
+    </NotAuthorized>
+</AuthorizeView>
 
-<LoginPage/>
 
 <SurveyPrompt Title="How is Blazor working for you?"/>
