@@ -13,7 +13,7 @@
         <EditForm Model="@pet" OnValidSubmit="@AddPet">
             <DataAnnotationsValidator/>
             <ValidationSummary/>
-            <p>Child:</p>
+            <label>Child:</label>
             <div class="form-group">
                 <InputSelect name="child" @bind-Value="person.FirstName">
                     <option value="None">None</option>
@@ -22,15 +22,15 @@
                     }
                 </InputSelect>
             </div>
-            <p>Name:</p>
+            <label>Name:</label>
             <div class="form-group">
                 <InputText @bind-Value="pet.Name"/>
             </div>
-            <p>Species:</p>
+            <label>Species:</label>
             <div class="form-group">
                 <InputText @bind-Value="pet.Species"/>
             </div>
-            <p>Age:</p>
+            <label>Age:</label>
             <div class="form-group">
                 <InputNumber @bind-Value="pet.Age"/>
             </div>
@@ -47,83 +47,108 @@
         <div class="container text-center">
         <div class="card text-center py-3">
             <div class="row">
-                <div class="col-md-6 col-sm-12 text-center">
-                    <p>First Name:</p>
-                    <div class="form-group">
-                        <InputText @bind-Value="person.FirstName"/>
+                <div class="offset-md-3 col-md-3 text-center">
+                    <div class="mb-5 mt-4">
+                        <label>First Name:</label>
+                        <div class="form-group">
+                            <InputText @bind-Value="person.FirstName"/>
+                        </div>
                     </div>
-                    <div>
+                    <div class="mb-5">
                         <label>Last Name:</label>
                         <div class="form-group">
                             <InputText @bind-Value="person.LastName"/>
                         </div>
                     </div>
-                    <p>Hair color:</p>
-                    <div class="form-group">
-                        <InputSelect name="hair_color" @bind-Value="person.HairColor">
-                            <option value="Black">Black</option>
-                            <option value="Grey">Grey</option>
-                            <option value="Blond">Blond</option>
-                            <option value="Leverpostej">Leverpostej</option>
-                            <option value="White">White</option>
-                            <option value="Blue">Blue</option>
-                        </InputSelect >
+                    <div class="mb-5">
+                        <label>Hair color:</label>
+                        <div class="form-group">
+                            <InputSelect name="hair_color" @bind-Value="person.HairColor">
+                                <option value="Black">Black</option>
+                                <option value="Grey">Grey</option>
+                                <option value="Blond">Blond</option>
+                                <option value="Leverpostej">Leverpostej</option>
+                                <option value="White">White</option>
+                                <option value="Blue">Blue</option>
+                            </InputSelect >
+                        </div>
                     </div>
-                    <p>Eye color:</p>
-                    <div class="form-group">
-                        <InputSelect name="eye_color" @bind-Value="person.EyeColor">
-                            <option value="Blue">Blue</option>
-                            <option value="Hazel">Hazel</option>
-                            <option value="Grey">Grey</option>
-                            <option value="Amber">Amber</option>
-                            <option value="Brown">Brown</option>
-                        </InputSelect>
+                    <div class="mb-5">
+                        <label>Eye color:</label>
+                        <div class="form-group">
+                            <InputSelect name="eye_color" @bind-Value="person.EyeColor">
+                                <option value="Blue">Blue</option>
+                                <option value="Hazel">Hazel</option>
+                                <option value="Grey">Grey</option>
+                                <option value="Amber">Amber</option>
+                                <option value="Brown">Brown</option>
+                            </InputSelect>
+                        </div>
                     </div>
-                    <p>Age:</p>
-                    <div class="form-group">
-                        <InputNumber @bind-Value="person.Age"/>
+                    <div class="mb-5">
+                        <label>Age:</label>
+                        <div class="form-group">
+                            <InputNumber @bind-Value="person.Age"/>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12 text-center">
-                    <p>Height:</p>
-                    <div class="form-group">
-                        <InputNumber @bind-Value="person.Height"/>
+                <div class="col-md-3 text-center">
+                    <div class="mb-5 mt-4">
+                        <label>Height:</label>
+                        <div class="form-group">
+                            <InputNumber @bind-Value="person.Height"/>
+                        </div>
                     </div>
-                    <p>Weight:</p>
-                    <div class="form-group">
-                        <InputNumber @bind-Value="person.Weight"/>
+                    <div class="mb-5">
+
+                        <label>Weight:</label>
+                        <div class="form-group">
+                            <InputNumber @bind-Value="person.Weight"/>
+                        </div>
                     </div>
-                    <p>Sex:</p>
-                    <div class="form-group">
-                        <InputSelect name="Sex" @bind-Value="person.Sex">
-                            <option value="F">F</option>
-                            <option value="M">M</option>
-                        </InputSelect>
+                    <div class="mb-5">
+                        <label>Sex:</label>
+                        <div class="form-group">
+                            <InputSelect name="Sex" @bind-Value="person.Sex">
+                                <option value="F">F</option>
+                                <option value="M">M</option>
+                            </InputSelect>
+                        </div>
                     </div>
                     @if (type.Equals("Adult")) {
                         <EditForm Model="@job" Context="j">
-                            <p>Job title:</p>
-                            <div class="form-group">
-                                <InputText @bind-Value="job.JobTitle"/>
+                            <div class="mb-5">
+                                <label>Job title:</label>
+                                <div class="form-group">
+                                    <InputText @bind-Value="job.JobTitle"/>
+                                </div>
                             </div>
-                            <p>Salary:</p>
-                            <div class="form-group">
-                                <InputNumber @bind-Value="job.Salary"/>
+                            <div class="mb-5">
+                                <label>Salary:</label>
+                                <div class="form-group">
+                                    <InputNumber @bind-Value="job.Salary"/>
+                                </div>
                             </div>
                         </EditForm>
-                    } else {
+                    }
+                    else {
                         <EditForm Model="@interest" Context="i">
-                            <p>Type:</p>
-                            <div class="form-group">
-                                <InputText @bind-Value="interest.Type"/>
+                            <div class="mb-5">
+                                <label>Interest Type:</label>
+                                <div class="form-group">
+                                    <InputText @bind-Value="interest.Type"/>
+                                </div>
                             </div>
-                            <p>Description:</p>
-                            <div class="form-group">
-                                <InputText @bind-Value="interest.Description"/>
+                            <div class="mb-5">
+                                <label>Interest Description:</label>
+                                <div class="form-group">
+                                    <InputText @bind-Value="interest.Description"/>
+                                </div>
                             </div>
                         </EditForm>
                     }
                 </div>
+                <div class="col-md-3"></div>
                 <p class="actions mx-auto">
                     <button class="btn btn-outline-dark" type="submit">Add Person</button>
                 </p>
