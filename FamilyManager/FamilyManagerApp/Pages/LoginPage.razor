@@ -5,10 +5,10 @@
 
 
 <div class="d-flex justify-content-center align-items-center">
-<div class="card w-50" >
-    <h4 class="card-header">Login</h4>
-    <div class="card-body">
-        <NotAuthorized>
+    <div class="card w-50">
+        <h4 class="card-header">Login</h4>
+        <div class="card-body">
+            <NotAuthorized >
                 <div class="form-group">
                     <label>Username</label>
                     <input class="form-control" type="text" placeholder="Username" @bind-value="username"/>
@@ -18,11 +18,11 @@
                     <input class="form-control" type="Password" placeholder="Password" @bind-value="password"/>
                 </div>
                 <div style="color:red">@errorMessage</div>
-                <button class =" btn btn-primary mr-1" @onclick="PerformLogin" >Login</button> 
-                <NavLink href="/RegisterPage" class ="btn btn-link">Register</NavLink>
+                <button class=" btn btn-primary mr-1" @onclick="PerformLogin">Login</button>
+                <NavLink href="/RegisterPage" class="btn btn-link">Register</NavLink>
             </NotAuthorized>
+        </div>
     </div>
-</div>
 </div>
 
 @code {
@@ -33,7 +33,7 @@
     public async Task PerformLogin() {
         errorMessage = "";
         try {
-            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
+            ((CustomAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             username = "";
             password = "";
             NavigationManager.NavigateTo("/FamilyList");

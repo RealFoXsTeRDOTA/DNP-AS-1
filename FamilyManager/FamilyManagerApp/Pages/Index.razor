@@ -1,9 +1,11 @@
 @page "/"
 <AuthorizeView>
     <NotAuthorized>
-         <LoginPage/>
+        <LoginPage/>
     </NotAuthorized>
+    <Authorized>
+        <div class="d-flex justify-content-center">
+            <img src="/Images/cshomepage.png" width="600" height="600"/>
+        </div>
+    </Authorized>
 </AuthorizeView>
-
-
-<SurveyPrompt Title="How is Blazor working for you?"/>
