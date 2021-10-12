@@ -21,6 +21,7 @@
                 <p class="actions">
                     <button class="btn btn-outline-dark" type="submit">Add Family</button>
                 </p>
+                <label style="color: red">@error</label>
             </EditForm>
         </div>
     </div>
@@ -28,18 +29,24 @@
 
 @code {
     private Family family = new Family();
+    private string error = "";
 
     protected override async Task OnInitializedAsync() {
     }
     
     private void CreateNewFamily() {
-        FamilyData.AddFamily(new Family() {
-            Adults = new List<Adult>(),
-            Children = new List<Child>(),
-            HouseNumber = family.HouseNumber,
-            StreetName = family.StreetName,
-            Pets = new List<Pet>()
-        });
-        NavMng.NavigateTo("/AddFamilyMember");
+        try {
+            FamilyData.AddFamily(new Family() {
+                Adults = new List<Adult>(),
+                Children = new List<Child>(),
+                HouseNumber = family.HouseNumber,
+                StreetName = family.StreetName,
+                Pets = new List<Pet>()
+            });
+            NavMng.NavigateTo("/AddFamilyMember");
+        }
+        catch (Exception e) {
+            error = e.Message;
+        }
     }
 }
