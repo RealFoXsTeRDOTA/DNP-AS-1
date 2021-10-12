@@ -10,7 +10,7 @@
 
 <h3>Add a New Family Member</h3>
 <p>
-    Select the type of member you want to:
+    Select the type of member you want to add:
 </p>
 <div class="mb-3">
     <select name="type" @oninput="@((arg) => ChangeType(arg))">
@@ -20,7 +20,7 @@
     </select>
 </div>
 <div class="mb-3">
-    <button class = "btn btn-primary mr-1" @onclick="AddNewFamily">Create a new Family</button>
+    <button class = "float-right btn btn-outline-dark mb-3" @onclick="AddNewFamily">Create a new Family</button>
     </div>
 <div class="mb-3">
     <p>Select the chosen family:</p>
