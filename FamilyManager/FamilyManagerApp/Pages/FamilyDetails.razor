@@ -37,11 +37,13 @@
                         <option value="child">Child</option>
                     </select>
                 </div>
-                <div class="d-flex justify-content-end">
-                    <button class="btn mx-auto" @onclick="@(() => RemoveFamily())">
-                        <i class="oi oi-trash" style="color:red"/>
-                    </button>
-                </div>
+                <AuthorizeView Policy="@Policies.IsAdmin">
+                    <div class="d-flex justify-content-end">
+                        <button class="btn mx-auto" @onclick="@(() => RemoveFamily())">
+                            <i class="oi oi-trash" style="color:red"/>
+                        </button>
+                    </div>
+                </AuthorizeView>
             </div>
             
                         
