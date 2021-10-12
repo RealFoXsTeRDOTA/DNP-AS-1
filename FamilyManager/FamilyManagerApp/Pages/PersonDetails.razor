@@ -33,16 +33,7 @@
             </div>
             <div class="d-flex flex-row justify-content-center align-items-center mt-3 w-25">
                 Sex:
-                <input type="checkbox" checked="@person.Sex"/>
-                <label>@person.Sex</label><br/>
-                @if (person.Sex.Equals("F")) {
-                    <input type="checkbox"/>
-                    <label>M</label>
-                }
-                else {
-                    <input type="checkbox"/>
-                    <label>F</label>
-                }
+                <label> @person.Sex</label>
             </div>
             <div class="text mt-3">
                 <span>Eye Color: @person.EyeColor</span>

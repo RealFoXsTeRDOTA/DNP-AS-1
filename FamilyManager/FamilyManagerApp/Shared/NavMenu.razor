@@ -22,14 +22,14 @@
         </li>
         <AuthorizeView Policy="@Policies.IsAdmin">
             <li class="nav-item px-3">
-                <NavLink class="nav-link" href="/addfamilymember">
+                <NavLink class="nav-link" href="/AddFamilyMember">
                     <span class="oi oi-plus"></span> Add a New Member
                 </NavLink>
             </li>
         </AuthorizeView>
         <AuthorizeView>
             <li class="nav-item px-3">
-                <NavLink class="nav-link" href="/stats">
+                <NavLink class="nav-link" href="/Stats">
                     <span class="oi oi-bar-chart"></span> Statistics
                 </NavLink>
             </li>
@@ -53,7 +53,7 @@
 
     public async Task PerformLogout() {
         ((CustomAuthenticationStateProvider) AuthenticationStateProvider).Logout();
-        NavigationManager.NavigateTo("/LoginPage");
+        NavigationManager.NavigateTo("/Login");
     }
 
 } 

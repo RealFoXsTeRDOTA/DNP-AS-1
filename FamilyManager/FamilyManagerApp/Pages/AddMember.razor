@@ -1,4 +1,4 @@
-﻿@page "/addmember/{streetName}/{houseNumber:int}/{type}"
+﻿@page "/Addmember/{streetName}/{houseNumber:int}/{type}"
 @using Data;
 @using Models
 @inject NavigationManager NavMng;
@@ -190,7 +190,7 @@
             FamilyData.AddPet(pet, family, family.Children.First(c => c.FirstName.Equals(person.FirstName)));
         else
             FamilyData.AddPet(pet, family);
-        NavMng.NavigateTo("/addfamilymember");
+        NavMng.NavigateTo("/AddFamilyMember");
     }
 
     private void AddPerson() {
@@ -229,6 +229,6 @@
                 }
             }, family);
         }
-        NavMng.NavigateTo("/addfamilymember");
+        NavMng.NavigateTo("/AddFamilyMember");
     }
 }            

@@ -1,4 +1,4 @@
-﻿@page "/RegisterPage"
+﻿@page "/Register"
 @using FileData
 @using Models
 @using FamilyManagerApp.Data
@@ -45,7 +45,7 @@
             ((CustomAuthenticationStateProvider)AuthenticationStateProvider).ValidateRegister(Username, Password, ConfirmationPassword);
             Username = "";
             Password = "";
-            NavigationManager.NavigateTo("/LoginPage");
+            NavigationManager.NavigateTo("/Login");
         }
         catch (Exception e) {
             ErrorMessage = e.Message;

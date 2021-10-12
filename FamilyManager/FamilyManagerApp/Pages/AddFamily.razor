@@ -1,4 +1,4 @@
-﻿@page "/addfamily"
+﻿@page "/AddFamily"
 @using Data;
 @using Models
 @inject NavigationManager NavMng;
@@ -40,6 +40,6 @@
             StreetName = family.StreetName,
             Pets = new List<Pet>()
         });
-        NavMng.NavigateTo("/addfamilymember");
+        NavMng.NavigateTo("/AddFamilyMember");
     }
 }

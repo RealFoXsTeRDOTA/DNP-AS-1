@@ -19,7 +19,7 @@
     protected override async Task OnInitializedAsync() {
         var user = (await AuthStat).User;
         if (!user.Identity.IsAuthenticated) {
-            NavigationManager.NavigateTo($"/LoginPage");
+            NavigationManager.NavigateTo($"/Login");
         }
     }
 

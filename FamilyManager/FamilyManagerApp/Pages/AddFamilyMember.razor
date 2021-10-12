@@ -1,4 +1,4 @@
-﻿@page "/addfamilymember"
+﻿@page "/AddFamilyMember"
 @using FamilyManagerApp.Data
 @attribute [Authorize(Policy = Policies.IsAdmin)]
 
@@ -72,10 +72,10 @@ else {
     }
 
     private void AddNewMember(string streetName,int houseNumber) {
-        NavMng.NavigateTo($"/addmember/{streetName}/{houseNumber}/{Type}");
+        NavMng.NavigateTo($"/AddMember/{streetName}/{houseNumber}/{Type}");
     }
 
     private void AddNewFamily() {
-        NavMng.NavigateTo("/addfamily");
+        NavMng.NavigateTo("/AddFamily");
     }
 }
