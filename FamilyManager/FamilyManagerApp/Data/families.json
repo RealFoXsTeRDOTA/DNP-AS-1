@@ -1096,5 +1096,12 @@
       }
     ],
     "Pets": []
+  },
+  {
+    "StreetName": "VIA Avenue",
+    "HouseNumber": 5,
+    "Adults": [],
+    "Children": [],
+    "Pets": []
   }
 ]
