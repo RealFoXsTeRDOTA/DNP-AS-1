@@ -32,7 +32,9 @@ namespace FamilyManagerApp.Data {
         }
         
         private void WriteUsersToFile() {
-            string usersAsJson = JsonSerializer.Serialize(users);
+            string usersAsJson = JsonSerializer.Serialize(users, new JsonSerializerOptions() {
+                WriteIndented = true
+            });
             File.WriteAllText(UsersFile, usersAsJson);
         }
         

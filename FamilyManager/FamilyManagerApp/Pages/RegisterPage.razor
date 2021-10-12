@@ -26,7 +26,8 @@
                     <input class="form-control" type="Password" placeholder="Confirmation password" @bind-value="ConfirmationPassword"/>
                 </div>
                 <div style="color:red">@ErrorMessage</div>
-                <button @onclick="PerformRegistration" class =" btn btn-primary mr-1" href="/LoginPage">Register</button>
+                <button @onclick="PerformRegistration" class =" btn btn-primary mr-1" href="/LoginPage">Register</button> 
+                <NavLink href="/LoginPage" class ="btn btn-link">Login</NavLink>
             </NotAuthorized>
         </AuthorizeView>
     </div>
